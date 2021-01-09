@@ -1,0 +1,4 @@
+require 
+class AiPlayer
+
+end
