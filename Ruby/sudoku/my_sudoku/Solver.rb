@@ -23,6 +23,7 @@ until @board.solved?
         
         puts
         @board.render
+        sleep(2)
        
        
         i-=2 if !move(squares[i])
@@ -42,8 +43,8 @@ end
 def move(pos)
     
 
-    initial_val=@board.grid[pos[0]][pos[1]].value
- 
+    # initial_val=@board.grid[pos[0]][pos[1]].value
+    initial_val = @board[pos].value
     if initial_val != 9
     new_val=initial_val+1
 
@@ -56,7 +57,9 @@ return true
 end
 end
 def row_valid?(pos)
-@board.value_grid[pos[0]].count(@board.value_grid[pos[0]][pos[1]]) <2
+# @board.value_grid[pos[0]].count(@board.value_grid[pos[0]][pos[1]]) <2
+@board.value_grid[pos[0]].count(@board[pos].value) <2
+
 end
 def col_valid?(pos)
     mat = Matrix[*(@board.value_grid)]

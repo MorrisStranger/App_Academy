@@ -42,12 +42,8 @@ def explore_current_words
         end
     end
 end
-new_current_words.each do |word|
-# print "current word #{word} "
-# puts "came from #{@all_seen_words[word]}"
-end
-# p new_current_words
-# sleep(5)
+
+
 @current_words=new_current_words
 
 end

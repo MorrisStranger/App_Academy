@@ -61,18 +61,20 @@ end
 result
 end
 
-# def update(position,value)
-# @grid[position[0]][position[1]]=Tile.new(value,false)
-# end
-def update(position,value)
-@grid[position[0]][position[1]]=Tile.new(value,false)
+
+def update(pos,value)
+x,y = pos
+self[pos]=value
 end
-# def [](pos)
-# @grid[position[0]][position[1]]
-# end
-# def []=(pos) 
-# @grid[position[0]][position[1]]=value
-# end
+def [](pos)
+    x,y =pos
+@grid[x][y]
+end
+def []=(pos,value)
+    x,y=pos
+    tile =@grid[x][y]
+tile.value=value
+end
 def value_grid
     arr=[]
     result=[] 

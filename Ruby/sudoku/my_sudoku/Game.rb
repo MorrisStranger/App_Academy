@@ -24,7 +24,8 @@ pos = [pos[1].to_i,pos[3].to_i]
 #     p "please enter a number from 1 to 9"
 #     sleep(3)
 # end
-if @board.grid[pos[0]][pos[1]].given 
+# if @board.grid[pos[0]][pos[1]].given 
+    if @board[pos].given
     p "please pick a new value, number is given"
     sleep(3)
 
@@ -39,6 +40,6 @@ end
 p "you solved it"
 end
 end
-# newboard=Board.from_file("sudoku1.txt")
-# newgame=Game.new(newboard)
-# newgame.play
+newboard=Board.from_file("../puzzles/sudoku1.txt")
+newgame=Game.new(newboard)
+newgame.play
