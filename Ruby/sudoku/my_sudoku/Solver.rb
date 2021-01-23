@@ -64,17 +64,17 @@ end
 def col_valid?(pos)
     mat = Matrix[*(@board.value_grid)]
     
-    mat.column(pos[1]).count(@board.value_grid[pos[0]][pos[1]]) <2
+    mat.column(pos[1]).count(@board[pos].value) <2
 end
 def square_valid?(pos)
     # 3*  (i /3) +  j / 3
-@board.turn_to_3by3[3*(pos[0]/3)+pos[1]/3].count(@board.value_grid[pos[0]][pos[1]]) < 2
+@board.turn_to_3by3[3*(pos[0]/3)+pos[1]/3].count(@board[pos].value) < 2
 end
 def squares
     arr =[]
     (0...@board.grid.length).each do |i|
         (0...@board.grid.length).each do |j|
-            arr << [i,j] if @board.grid[i][j].given==false 
+            arr << [i,j] if @board[[i,j]].given==false 
         end
     
     end
