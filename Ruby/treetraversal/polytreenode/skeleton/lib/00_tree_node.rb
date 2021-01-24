@@ -8,7 +8,7 @@ class PolyTreeNode
 
     end
     def inspect
-        { 'value' => @value, 'parent_value' => @parent.value,"children"=>@children.map(&:value) }.inspect
+        { 'value' => @value,"children"=>@children.map(&:value),"object_id"=>self.object_id }.inspect
     end
     def parent=(node)
 
@@ -70,20 +70,40 @@ class PolyTreeNode
     #     end
     # end
     # end
-    def bfs(val)
-    
-        queue=[self]
-        el = queue.shift
-        return el if el.value==val
-        el.children.each do |child|
-            return child if child.value==val
 
-            queue +=child.children
+    def bfs(val) # why does this not work!!!
+        queue=self.dup
+        # p queue
+        queue=[queue]
+        # el = queue.shift
+        # debugger
+        queue.each do |child|
+            # p child.object_id
+            if child.value==val
+            # p child.object_id
+                return child
+            end
+            # p child.value
+            # p queue
+            (queue << child.children).flatten!
+            # p queue.object_id
+            # puts "after adding children"
+            # p queue
+
+            # p child
+            # puts ("child")
+            # p child
+
             
     
         end
+        nil
     end
 end
+
+
+
+
 #     a 
 #   /   \
 #  b      c
