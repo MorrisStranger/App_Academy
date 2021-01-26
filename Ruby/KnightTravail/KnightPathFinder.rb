@@ -1,6 +1,6 @@
 # require_relative("../polytreenode/solution/lib/00_tree_node.rb")
 
-require_relative("../polytreenode/skeleton/lib/00_tree_node.rb")
+require_relative("../treetraversal/polytreenode/skeleton/lib/00_tree_node.rb")
 class KnightPathFinder
   
     def self.valid_moves(pos)
@@ -36,7 +36,7 @@ class KnightPathFinder
     end
     def build_move_tree
         queue=[@root_node]
-        nodes=queue.dup
+        # nodes=queue.dup
         until queue.empty?
             node=queue.shift
             new_move_positions(node.value).each do |childpos|
@@ -45,12 +45,13 @@ class KnightPathFinder
         
                 child.parent = node
                 queue << child
-                nodes << child
+                # nodes << child
             end
         
 
         end
-        nodes
+        # nodes
+        
     end
         def find_path(end_pos)
             p trace_path_back(end_pos)
