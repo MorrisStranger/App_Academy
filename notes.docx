@@ -1,0 +1,2630 @@
+dd cursor input to minesweeper
+Lookup difference between abstraction and encapsulation
+Lookup inheritance use cases
+review destructiong link at bootom of method decompoisition and design in ruby section
+review making deep_dup method for ruby since doesn’t work with arrays
+review mixin in polytreenode class solution 
+watch lecture at the end of code smells section
+come back to do AI player
+come back and redo final problem in recursive execercises of software engineering foundations section
+add try,raise, rescue sections
+can use system("") for commands and things like sleep(), can use .chomp
+if $ProgramName ==__FIle__
+is used to execute particular commands if the program is running
+
+
+do videos from first lecture and advanced exercises too
+go through double while loop method for compressing strings
+return in an if statement within a do block returns out of the do block
+can initialise a hash to have default VALUES of 0 with
+count = Hash.new(0)
+then one can add to the values of the counts using:
+count[key]+=1
+25 mod 27 returns 25
+27 mod 25 returns 2
+
+lookup how do blocks work for each and map and what each and map return and how they can modify arrays and what returning out of a do block does.
+RUBY
+
+puts include blank line, print does not
+array >> value adds to end of an array
+
+push can add multiple elements to end of an array, >> only 1
+
+expression array >> value
+wherever dont have arguments in parentheses can just remove the parentheses in Ruby
+
+and expression array .push( value) evaluate to the array itself
+.pop evaluates to element you are trying to remove and removes last element from an array
+
+arr.unshift(value) adds to first element of array and evaluate to the array
+arr.shift  does not take any paramaters and removes first value of the array and evaluates to the array
+arr.index(value) returns index of a value in an array
+arr.include?(val) returns boolean whether or not the value is in the array
+same works for hashes:
+hash.include?(key) returns boolean whether or not the key is in the hash
+
+same works for strings:
+str.index(value)
+str.include?(value)
+arr.reverse evauates to the reversed array (but it doesn't modify the original array).
+arr.reverse! however will change the original array to reverse it
+print arr[1..3]
+slices the elements at index 1 through 3 inclusive
+print arr[1...3] would be excluding the end index
+
+can also use negative indices for arrays starting at the end.
+arr[1..-1] will give every character excluding the first character
+(The last character is at index -1)
+
+this also works for strings.
+
+str = "follow the yellow brick road"
+can use puts str.split(" ")
+returns:
+follow
+the
+yellow
+brick
+road
+so puts is returning an array but doesn't show the square brackets and in array form, for that we use print:
+print str.split(" ")
+returns 
+["follow", "the", "yellow","brick", "road"]
+can also just split every character using str.split("") without the space
+str.split does not change the str variable
+there is also arr.join(" ")
+enumerables
+can loop through an array with enumerable method known as each which takes in a block of code using curly braces :
+months = ["Jan", "Feb", "Mar", "Apr"]
+and we take in a block paramater each element of months:
+months.each {| month| puts month}
+and this will print on a new line each month in the array
+can also do a multi line block:
+months.each do |month|
+puts month
+puts "----"
+end
+returns:
+Jan
+----
+Feb
+----
+etc.
+do is preferred for multiple lines, braces just for one line of code:
+
+there are also some similar enumerable methods that work for strings, cant use each but instead use each_char:
+sentence = "hello world"
+sentence.each_char do |char|
+puts char
+end
+
+but for these methods we dont have indices so we use another version of each for that called each_with_index:
+
+months.each_with_index do |month, idx|
+puts month
+puts idx
+puts "----"
+end
+
+for a string we do (note the use of a dot rather than an underscore after char:
+
+sentence.each_char.with_index do |char,idx|
+puts char
+puts idx
+puts "----"
+end
+
+
+but often we don't want to write a whole array out only to iterate through it so for that we use parentheses to create a range of numbers:
+
+(1..10).each { |num | puts num}
+returns
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+we can also use another enumerable:
+4.times { puts "hi" } 
+returns
+hello
+hello
+hello
+hello
+
+nested loops
+(1..3).each do |num1|
+	puts num1
+	(1..5).each do |num2|
+	puts "    " + num2.to_s
+	end
+end
+to_s means to string
+
+returns
+1
+	1
+	2
+	3
+	4
+	5
+2
+	1
+	2
+	3
+	4
+	5
+etc.
+
+can also use .each for hashes and in the block paramater take 2 arguments (key and value):
+pizza = {
+"style" => "New York",
+"slices" => 8,
+"toppings"=> ["mushrooms","green peppers"],
+"is_tasty" => true
+}
+pizza.each do |k,v |
+	puts k
+	puts v
+	puts "-------"
+end
+can also just iterate over the keys themselves:
+pizza.each_key do |k|
+	puts k
+end
+and we also have each_value:
+pizza.each_value do |val|
+	puts val
+end
+
+the default value of a key that is missing is nil:
+my_hash = {
+"a" => 28
+}
+puts my_hash["b"] == nil
+returns true
+though just puts my_hash["b"] will not return anything to the console
+you can also set a different default value though if you initialize your hash in a different way:
+
+my_hash = Hash.new(0)
+puts my_hash["a"]	returns 0 as that is what was set as the default value
+
+we can do something with this:
+str = "bootcamp prep"
+and we can create a hash for each letter the value is how many times it appears:
+counter = Hash.new(0)
+str.each_char { |char|counter[char]+=1}
+puts counter
+returns:
+{"b"=>1,"o"=>2,"t"=>1,"c"=>2,"a"=>1,"m"=>1,"p"=>3 etc.}
+
+can also organise data by most frequent character:
+print counter.sort_by {|k,v| v}
+returns a 2d array with each sub array being 2 elements with the key and value ordered in ascending order of value.
+
+Can also sort by the key by just replacing v with k:
+print counter.sort_by {|k,v| v}
+will return 2d array sorted in alphabetical order
+
+
+if we want to see the data that it truly is in order to for example see nil printed to the console, we can use p instead of print:
+my_array = ["a","b","c"]
+p my_array[3] returns nil whereas print my_array[3] doesn't show anything to the console.
+if we want to perform multiple modifications and append to a new array we can use the map method instead of each:
+new_arr= my_array.map {|ele| ele.upcase +"!" }
+print new_arr
+and we didn't have to append each element to a new array
+
+we can also use select if we want to get some elements from an array based on conditions for example the even numbers from an array:
+nums = [1,2,3,3,4,5,6]
+evens = nums.select { |ele| ele % 2 == 0}
+end
+print evens
+puts
+
+it should be noted that the last line of code in the block is what is returned by map:
+arr = ["apple","bootCAMP","caRrot","daNce"]
+
+new_arr = arr.map do |ele|
+	first_char = ele[0].upcase
+	rest = ele[1..-1].downcase
+	first_char + rest
+end
+print new_arr
+will print the array with the required formatting but if we had "hello" as the last line then the elements will all just be "hello".
+can also do arr.map.with_index and use 2 arguments in the block parameter.
+
+Ruby Syntax:
+
+def get_avg(num_1, num_2)
+    return (num_1 + num_2) / 2
+end
+
+# Preferred by a Rubyist
+def get_avg(num_1, num_2)
+    (num_1 + num_2) / 2
+end
+
+
+def say_hi
+    puts "hi"
+end
+
+# Less preferred 
+say_hi()
+
+# Preferred by a Rubyist
+say_hi
+
+raining = true
+
+# Less preferred
+if raining
+    puts "don't forget an umbrella!"
+end
+
+# Preferred by a Rubyist
+puts "don't forget an umbrella!" if raining
+
+# Less preferred
+def all_numbers_even?(nums)
+    nums.each do |num|
+        return false if num % 2 != 0
+    end
+
+    true
+end
+
+# Preferred by a Rubyist
+def all_numbers_even?(nums)
+    nums.all? { |num| num.even? }
+end
+
+methods
+
+all?
+Return true when all elements result in true when passed into the block.
+
+p [2, 4, 6].all? { |el| el.even? }  # => true
+p [2, 3, 6].all? { |el| el.even? }  # => false
+
+
+
+any?
+Return true when all at least one element results in true when passed into the block.
+
+p [3, 4, 7].any? { |el| el.even? }  # => true
+p [3, 5, 7].any? { |el| el.even? }  # => false
+none?
+Return true when no elements of result in true when passed into the block.
+
+p [1, 3, 5].none? { |el| el.even? } # => true
+p [1, 4, 5].none? { |el| el.even? } # => false
+one?
+Return true when exactly one element results in true when passed into the block.
+
+p [1, 4, 5].one? { |el| el.even? }  # => true
+p [1, 4, 6].one? { |el| el.even? }  # => false
+p [1, 3, 5].one? { |el| el.even? }  # => false
+count
+Return a number representing the count of elements that result in true when passed into the block.
+
+p [1, 2, 3, 4, 5, 6].count { |el| el.even? }    # => 3
+p [1, 3, 5].count { |el| el.even? }             # => 0
+
+
+flatten
+Return the 1 dimensional version of any multidimensional array
+
+multi_d = [
+    [["a", "b"], "c"],
+    [["d"], ["e"]],
+    "f"
+]
+
+p multi_d.flatten   # => ["a", "b", "c", "d", "e", "f"]
+
+
+symbols
+str = "hello"   # the string 
+sym = :hello    # the symbol
+
+p str.length    # => 5
+p sym.length    # => 5
+
+p str[1]        # => "e"
+p sym[1]        # => "e"
+
+p str == sym    # => false
+# a string is different from a symbol!
+
+
+Symbols are Immutable
+The most apparent difference between strings and symbols is that strings are mutable, while symbols are immutable. This means that string can be "changed", but a symbol can never be "changed":
+
+str = "hello"
+sym = :hello
+
+str[0] = "x"
+sym[0] = "x"
+
+p str   # => "xello"
+p sym   # => :hello
+The utility of a symbol comes from the fact that it can never change over time. The technical implication of this is that a symbol only needs to be "created" once. There is no need to create "copies" of symbol because we can be certain that it will not change over the course of our programs. Operations such as comparing two symbols is very fast and efficient compared to regular strings.
+
+Under the hood, each time we reference a literal string, Ruby will allocate a piece of our machine's memory to store that string. More memory must always be allocated for a new string, even if it is a duplicate value, because strings are mutable! We must track changes to the strings separately, so we need to store the two instances of the string in distinct memory locations.
+
+Talk of memory locations is pretty abstract, but an easy way to witness this is to use Ruby's object_id method. This will return the memory address of some data. Notice how duplicate value strings will be stored at different memory locations:
+
+"hello".object_id   # => 70233443667980
+"hello".object_id   # => 70233443606440
+"hello".object_id   # => 70233443438700
+If we don't intend to mutate the string, we can use a symbol to save some memory. A symbol value will be stored in exactly one memory location:
+
+:hello.object_id    # => 2899228
+:hello.object_id    # => 2899228
+:hello.object_id    # => 2899228
+Because of these characteristics, symbols are often used to act as unique identifiers in our code. We'll be able to ensure the the identifier will remain intact, without change, while also being efficient with memory.
+
+
+one common way to a symbol is as the key in a hash:
+
+my_bootcamp = { :name=>"App Academy", :color=>"red", :locations=>["NY", "SF", "ONLINE"] }
+p my_bootcamp           # => {:name=>"App Academy", :color=>"red", :locations=>["NY", "SF", "ONLINE"]}
+p my_bootcamp[:color]   #=> "red
+
+
+
+When initializing a hash with symbol keys, Ruby offers a shortcut. We can drop the rocket (=>) and move the colon (:) to the right of the symbol:
+
+my_bootcamp = { name:"App Academy", color:"red", locations:["NY", "SF", "ONLINE"] }
+p my_bootcamp           # => {:name=>"App Academy", :color=>"red", :locations=>["NY", "SF", "ONLINE"]}
+p my_bootcamp[:color]   #=> "red
+This shortcut is only allowed when initializing the symbols in the hash. When getting a value from the hash after initialization, we must always put the colon on the left like normal. hash[:key] is the correct syntax. Writing hash[key:] is invalid.
+
+
+
+Option Hashes
+If you have a method that accepts a hash as an argument, you can omit the braces when passing in the hash:
+
+def method(hash)
+    p hash  # {"location"=>"SF", "color"=>"red", "size"=>100}
+end
+
+method({"location"=>"SF", "color"=>"red", "size"=>100})
+
+# this also works:
+method("location"=>"SF", "color"=>"red", "size"=>100)
+This can really clean things up when you have other arguments before the hash:
+
+def modify_string(str, options)
+    str.upcase! if options["upper"]
+    p str * options["repeats"]
+end
+
+# less readable
+modify_string("bye", {"upper"=>true, "repeats"=>3}) # => "BYEBYEBYE"
+
+# more readable
+modify_string("bye", "upper"=>true, "repeats"=>3)   # => "BYEBYEBYE"
+
+
+
+Splat operator:
+
+ if we want our method to have the ability to accept at least two arguments with potentially more, we can add a splat parameter. The additional arguments will be gathered into an array for us to use as we see fit:
+
+def method(arg_1, arg_2, *other_args)
+    p arg_1         # "a"
+    p arg_2         # "b"
+    p other_args    # ["c", "d", "e"]
+end
+
+method("a", "b", "c", "d", "e") 
+If we pass in exactly two arguments, then other_args will be an empty array:
+
+def method(arg_1, arg_2, *other_args)
+    p arg_1         # "a"
+    p arg_2         # "b"
+    p other_args    # []
+end
+
+method("a", "b") 
+
+
+
+Using splat to decompose an array
+We can also use splat to decompose or unpack elements of an array. Let's say we had an array containing some elements, but we wanted each individual element to become an argument:
+
+def greet(first_name, last_name)
+    p "Hey " + first_name + ", your last name is " + last_name
+end
+
+names = ["grace", "hopper"]
+greet(names)    # ArgumentError: wrong number of arguments (given 1, expected 2)
+The code above does not work because we are passing in the full array as the first_name, making last_name a missing argument. Thankfully we can use a splat to unpack this array:
+
+def greet(first_name, last_name)
+    p "Hey " + first_name + ", your last name is " + last_name
+end
+
+names = ["Grace", "Hopper"]
+greet(*names)    # => "Hey Grace, your last name is Hopper"
+When using splat to unpack an array, you can imagine that the * will remove the brackets ([]) that enclose the array. This leaves us with a simple comma separated list, perfect for passing in arguments. If you imagine * as removing the brackets around an array, we can figure out some other creative ways to use this tool:
+
+arr_1 = ["a", "b"]
+arr_2 = ["d", "e"]
+arr_3 = [ *arr_1, "c", *arr_2 ]
+p arr_3 # => ["a", "b", "c", "d", "e"]
+Using splat to decompose a hash
+We can use a double splat (**) to perform a similar unpacking of a hash's key-value pairs. Double splat will only work with hashes where the keys are symbols:
+
+old_hash = { a: 1, b: 2 }
+new_hash = { **old_hash, c: 3 }
+p new_hash # => {:a=>1, :b=>2, :c=>3}
+
+
+the all important inject method:
+[11, 7, 2, 4].inject { |acc, el| acc + el }
+Notice that the block params are always in the order of accumulator (acc) followed by element (el). Let's now explore inject in action. Because of how we are calling inject, the initial accumulator will be the first element of the array by default. So our first iteration has the acc set to 11 and el set to 7.
+
+# FIRST ITERATION:
+# acc = 11
+# el = 7
+# new_acc = 18
+[11, 7, 2, 4].inject { |acc, el| acc + el }
+Since the block results in 11 + 7, 18 will be assigned to acc in the next iteration. The el simply iterates to the next element of the array:
+
+# SECOND ITERATION:
+# acc = 18
+# el = 2
+# new_acc = 20
+[11, 7, 2, 4].inject { |acc, el| acc + el }
+Now the acc is 20 and we have to do one more iteration for the last el:
+
+# acc = 20
+# el = 4
+# new_acc = 24
+p [11, 7, 2, 4].inject { |acc, el| acc + el } # => 24
+
+
+Or how about finding the minimum value in an array:
+
+p [11, 7, 2, 4].inject do |acc, el|
+    if el < acc
+        el
+    else
+        acc
+    end
+end # => 2
+the key to understanding inject is to remember that the accumulator will be reassigned to the result of the block on every iteration. Because inject performs a simple reassignment to the accumulator, we can design any block to control how the accumulator should change.
+
+
+
+Inject with a default accumulator
+In the last examples we described how the first element of the array will become the initial accumulator and the first iteration technically grabs the second element. We can also use inject by passing in our own initial accumulator. In this scenario, the acc will be our own value and the first el will be the first element of the array. Let's make 100 our initial accumulator:
+
+# FIRST ITERATION:
+# acc = 100
+# el = 11
+# new_acc = 111
+[11, 7, 2, 4].inject(100) { |acc, el| acc + el }
+# SECOND ITERATION
+# acc = 111
+# el = 7
+# new_acc = 118
+[11, 7, 2, 4].inject(100) { |acc, el| acc + el }
+# THIRD ITERATION
+# acc = 118
+# el = 2
+# new_acc = 120
+[11, 7, 2, 4].inject(100) { |acc, el| acc + el }
+# FOURTH ITERATION
+# acc = 120
+# el = 4
+# new_acc = 124
+p [11, 7, 2, 4].inject(100) { |acc, el| acc + el } # => 124
+Nice! Being able to set our own initial accumulator can really open up our possibilities. Here's an inject that sums up all even numbers of an array:
+
+[11, 7, 2, 4].inject(0) do |acc, el|
+    if el.even?
+        acc + el
+    else
+        acc
+    end
+end # => 6
+
+Bubble sort
+array = ["a", "b", "c", "d"]    # let's swap "a" and "b"
+array[0], array[1] = array[1], array[0]
+p array         # => ["b", "a", "c", "d"]
+
+
+
+
+def bubble_sort(array)
+    sorted = false
+    while !sorted
+        sorted = true
+
+        (0...array.length - 1).each do |i|
+            if array[i] > array[i + 1]
+                array[i], array[i + 1] = array[i + 1], array[i]
+                sorted = false
+            end
+        end
+    end
+
+    array
+end
+
+
+
+
+scope
+
+message = "hi"
+
+def say_hello
+    p message   # NameError: undefined local variable
+end
+
+say_hello
+
+
+Global Variables
+Okay, so methods are the primary areas for scope, but are there any others? Everywhere area in our code can access the global scope. To define variables in the global scope, we must use special syntax. Let's redo our last example utilizing global scope:
+
+$message = "hello globe"
+
+def say_hello
+    p $message
+end
+
+say_hello # => "hello globe"
+This code will correctly print "hello globe". Creating a global variable is simple, put a $ at the beginning of the name. Here's a similar example, this time creating the global $message inside of say_hello but referencing it from the outside:
+
+def say_hello
+    $message = "hello globe"
+end
+
+say_hello
+p $message # => "hello globe"
+
+
+
+Ruby automatically defines some global variables for us to reference. For example, $PROGRAM_NAME will be a string describing the name of our program. Later in the course we'll use other global names like $stdin and $stdout handle user input and output. For now, just understand that we can reference a $variable_name anywhere in our program because it is global!
+
+
+Constants
+Let's take a quick detour to explore an additional way to create a variable, using a constant. A constant is denoted syntactically by beginning the name with a capital letter. By convention we like to make the entire name capital to emphasize it being a special constant.
+
+A constant variable cannot be reassigned:
+
+FOOD = "pho"
+p FOOD # => "pho"
+
+FOOD = "ramen"  #warning: already initialized constant FOOD
+                #warning: previous definition of FOOD was here
+You'll receive a warning when reassigning a constant. Reassignment means using = on that name again. A common point of confusion is that while you cannot reassign a constant, you can still mutate that constant name without warning:
+
+FOOD = "pho"
+FOOD[0] = "P"
+p FOOD # => "Pho
+Note that above we did not reassign to the FOOD name, instead we assign to an index of the FOOD string. The key takeaway is that constants can still mutate or be "changed", they just can't be reassigned.
+
+
+
+Why bring up constants in our chatter about scope? Because constants will exist in global scope! We can do VARIABLE or $variable to ensure global scoping:
+
+FOOD = "pho"
+$drink = "ice coffee"
+
+def my_favorite
+    p FOOD
+    p $drink
+end
+
+my_favorite
+
+The code above works because both variables are accessible in global scope. This means they can be referenced anywhere in our code! However, we should use the global scope sparingly. We want to minimize our methods all referencing data that is outside of them, as manipulations to the data will be hard to track. Instead we should write methods that accept data as arguments as it is more explicit where the data is coming from.
+
+
+What does not have it's own scope?
+So methods and the global scope will be our primary structures that provide scope. Now let's highlight what structures don't have their own scope.
+
+Blocks don't have their own scope, they are really a part of the containing method's scope. Below, the times block can reference message.
+
+def say_bye
+    message = "bye"
+
+    3.times do 
+        p message
+    end
+end
+
+say_bye
+Other structures like conditionals or while loops also don't have their own scope, they are really part of the containing scope. Although a variable is defined within the if statement below, it is still accessible outside of the if statement, because if's don't have their own scope.
+
+if true
+    drink = "cortado"
+end
+
+p drink
+
+
+Memory References
+The reason constants cannot be reassigned is reassinment creates a new memory address for the variable name to point to wheras mutation does not but just changes the data at the existing address.
+
+we can create a new array using
+arr = Array.new(3)
+returns
+[nil,nil,nil]
+we can also specify a default value:
+arr = Array.new(3,5)
+returns
+[5,5,5]
+we can also create a 2 dimensional array:
+grid = Array.new(3, Array.new(3))
+returns
+[[nil,nil,nil],[nil,nil,nil],[nil,nil,nil]]
+then we may think we can mutate the first element of the array like:
+grid[0][0] = "X"
+but what this actually returns is surprising!:
+[["X",nil,nil],["X",nil,nil],["X",nil,nil]]
+
+this is because each of the 3 elements of grid are pointing to the same place in memory since they are from a single array so changing one of them, changes all of them.
+So we want to have many different arrays for each element of grid. The way we do that is using blocks:
+grid = Array.new(3) {Array.new(3)}
+this has each element of the outer Array.new(3) evaluate to the expression in the block so that now:
+grid[0][0] = "X"
+returns
+[["X",nil,nil],[nil,nil,nil],[nil,nil,nil]]	as required
+
+shortcut
+["a", "b", "c"].map { |str| str.upcase }  #=> ["A", "B", "C"]
+[1, 2, 5].select { |num| num.odd? }       #=> [1, 5]
+Ruby allows us to use cleaner syntax when we have simple blocks that follow the above pattern. Let's refactor the above example to use this shortcut:
+
+["a", "b", "c"].map(&:upcase) #=> ["A", "B", "C"]
+[1, 2, 5].select(&:odd?)      #=> [1, 5]
+
+
+For now, here's a hard and fast rule you can use to optimize some blocks. If you are calling a method like map, passing a block that has this general structure:
+
+array.map { |block_param| block_param.method }
+Then you can rewrite it as:
+
+array.map(&:method)
+When employing this trick, be aware of what &:method you are using. The method you choose should be compatible with your data:
+
+["a", "b", "c"].map(&:upcase) # => ["A", "B", "C"]
+[1, 2, 3].map(&:upcase)       # NoMethodError: undefined method 'upcase' for Integer
+
+Procs
+you cannot save blocks to variables or move them around.
+my_block = {|num| num*2}			fails
+
+ To move things around in ruby they need to be objects, so we turn the block into a proc which acts as a wrapper around the block
+my_proc = Proc.new {|a,b| a*b}
+.call is a built in method to procs:
+p my_proc.call(3,2) 	returns 6
+
+the advantage of procs over methods is that you can move it around storing it in other variables or even passing it into another method. This is because procs are objects whereas methods are not.
+methods need to take objects as parameters and thus cannot take blocks, therefore we convert block to procs:
+def add_and_proc(num_1,num_2,prc)
+sum = num_1+num_2
+prc.call(sum)
+end
+doubler = Proc.new {|n| 2*n }
+p add_and_proc(2,3,doubler)
+
+but to create different procs this syntax is a bit clunky so we can use & to convert blocks  to procs
+then we can call method like:
+def add_and_proc(num_1,num_2,&prc)
+sum = num_1+num_2
+prc.call(sum)
+end
+
+p add_and_proc(2,3) {|n| 2*n}
+so now we are passing the method a block of code. and &prc makes prc a proc from a block of code that is passed in.
+
+
+
+can reproduce the map method:
+def my_map(arr,&prc)
+new_arr = []
+arr.each {|ele| new_arr << prc.call(ele)}
+new_arr
+end
+p my_map([1,2,3]) {|num| num*2}
+
+here prc is a proc
+Classes
+
+instead of using objects that have keys to define our properties we use classes so that we don't have to rewrite our same keys each time since the collection of objects all have the same keys anyway. We do this as below:
+
+class Cat
+  def initialize(name, color, age)
+    @name = name
+    @color = color
+    @age = age
+  end
+end
+
+name of a class must begin with a capital letter
+we can define methods within a class
+
+We defined a method named initialize in our class and @ is how we denote an instance variable or attribute of our class.
+we can then create new Cats:
+cat_1 = Cat.new("Sennacy","brown",3)
+cat_2 = Cat.new("Whiskers", "white", 5)
+p cat_1 #<Cat:0x007fb6d804cfe0 @age=3, @color="brown", @name="Sennacy">
+p cat_2 #<Cat:0x007fb6d6bb60b8 @age=5, @color="white", @name="Whiskers">
+
+
+eventhough we haven't defined the new method in our class, new actually calls upon the initialise method we defined and the instances contain the attributes @age,@color and @name.
+so @age
+
+getter methods
+we define methods to get the values of the class attributes:
+class Cat
+  def initialize(name, color, age)
+    @name = name
+    @color = color
+    @age = age
+  end
+
+  def get_name
+    @name
+  end
+end
+
+cat_1 = Cat.new("Sennacy", "brown", 3)
+p cat_1.get_name # "Sennacy"
+
+we call get_name on the instance of the class not the class itself.
+
+we can only use getter methods to get the value of an attribute but cannot modify an attribute value
+cat_1.name = "Kitty"  # This will give NoMethodError: undefined method `name='
+
+to do this we use setter methods:
+setter methods
+The error we get above suggests that we need to have a age= method on our Cat class. What a strange method name! Let's implement it:
+
+class Cat
+  def initialize(name, color, age)
+    @name = name
+    @color = color
+    @age = age
+  end
+
+  # getter
+  def age
+    @age
+  end
+
+  # setter
+  def age=(number)
+    @age = number
+  end
+end
+
+cat_1 = Cat.new("Sennacy", "brown", 3)
+p cat_1 #<Cat:0x007f8511a6f340 @age=3, @color="brown", @name="Sennacy">
+cat_1.age = 42
+p cat_1 #<Cat:0x007f8511a6f340 @age=42, @color="brown", @name="Sennacy">
+Now we have a working method that we can use to change the age! Great. But something that feels uncomfortable here is how we call the method with cat_1.age = 42. If age= is the method name, then what's up with the space between age and =, as well as the lack of parentheses around our 42 arg? This doesn't seem like a proper method call, but it truly is! The following two method calls are equivalent
+
+cat_1.age=(42)
+cat_1.age = 42
+
+Getters and setters are common methods to implement on a class, but we can implement any arbitrary method we please on a class. The possibilities are endless:
+
+class Cat
+  def initialize(name, color, age)
+    @name = name
+    @color = color
+    @age = age
+  end
+
+  def purr
+    if @age > 5
+      puts @name.upcase + " goes purrrrrr..."
+    else
+      puts "..."
+    end
+  end
+end
+
+cat_1 = Cat.new("Sennacy", "brown", 10)
+cat_1.purr  # "SENNACY goes purrrrrr..."
+
+cat_2 = Cat.new("Whiskers", "white", 3)
+cat_2.purr  # "..."
+
+
+Class Variables
+In our exploration of classes so far we have used plenty of instance variables or attributes. Similar to how we can have class methods we can also have class variables. Let's compare the two.
+
+Instance Variables
+Like we learned previously, instance variables are denoted with @ and are typically assigned inside #initialize:
+
+class Car
+  def initialize(color)
+    @color = color
+  end
+
+  def color
+    @color
+  end
+end
+
+car_1 = Car.new("red")
+p car_1.color     # "red"
+
+car_2 = Car.new("black")
+p car_2.color     # "black"
+Nothing new here. If we want cars to vary in the property of color, then we simply make the relevant instance variable for @color. Great, but what if we wanted to have a property that is shared among all cars? Let's accomplish this next using a class variable.
+
+Class Variables
+Let's say we wanted all car instances to have the same number of wheels. We can add a class variable @@num_wheels:
+
+class Car
+  @@num_wheels = 4
+
+  def initialize(color)
+    @color = color
+  end
+
+  # getter for @color instance variable
+  def color
+    @color
+  end
+
+  # getter for @@num_wheels class variable
+  def num_wheels
+    @@num_wheels
+  end
+end
+
+car_1 = Car.new("red")
+p car_1.num_wheels    # 4
+
+car_2 = Car.new("black")
+p car_2.num_wheels    # 4
+Notice that we use @@ to denote class variables and typically assign these variables right inside of the class, but not inside of #initialize. This means that any car instance we create will be able to refer to this single, shared @@num_wheels variable. An important distinction to have in mind is that instances car_1 and car_2 have their own/separate @color variables, but share a single @@num_wheels variable.
+
+As a result of all instances sharing this single variable, a change to this variable will effect all instances. Let's create a class method that sets @@num_wheels:
+
+class Car
+  @@num_wheels = 4
+
+  def self.upgrade_to_flying_cars
+    @@num_wheels = 0
+  end
+
+  def initialize(color)
+    @color = color
+  end
+
+  def num_wheels
+    @@num_wheels
+  end
+end
+
+car_1 = Car.new("red")
+car_2 = Car.new("black")
+
+p car_1.num_wheels    # 4
+p car_2.num_wheels    # 4
+
+Car.upgrade_to_flying_cars
+
+p car_1.num_wheels    # 0
+p car_2.num_wheels    # 0
+
+car_3 = Car.new("silver")
+p car_3.num_wheels    # 0
+The future is now! Changing class variables is really powerful since it effects every instance that we created and will create in the future (see car_3 above). However, with great power comes great responsibility, so be very cautious when writing such code.
+
+Class Constants
+Often times, we'll want to prevent class variables from being changed for safety. In this scenario we'll want to create a class constant instead. As it's name suggests, a constant cannot be reassigned. Let's redo the last example with a class constant:
+
+class Car
+  NUM_WHEELS = 4
+
+  def self.upgrade_to_flying_cars
+    NUM_WHEELS = 0    # SyntaxError: dynamic constant assignment
+  end
+
+  def initialize(color)
+    @color = color
+  end
+
+  def num_wheels
+    NUM_WHEELS
+  end
+end
+
+
+car_1 = Car.new("red")
+car_2 = Car.new("black")
+
+p car_1.num_wheels    # 4
+p car_2.num_wheels    # 4
+
+Car.upgrade_to_flying_cars
+Class constant names must be capitalized. Notice that reassigning the constant will fail with an error, exactly what we wanted!
+
+
+instance methods vs class methods
+
+we have been dealing with instance methods which are called on an instance of a class
+A class method is a method that is called directly on the class. Let's see how to define a class method:
+
+class Dog
+  def initialize(name, bark)
+    @name = name
+    @bark = bark
+  end
+
+  def self.growl
+    "Grrrrr"
+  end
+end
+
+Dog.growl   # Grrrrr
+
+Since growl is a class method, we cannot call it on an instance; instead we call it on the Dog class directly . A class method cannot refer to any instance attributes like @name and @bark!
+class#method denotes an instance method
+class::method denotes a class method
+
+
+class Dog
+  def initialize(name, bark)
+    @name = name
+    @bark = bark
+  end
+
+  def self.whos_louder(dog_1, dog_2)
+    if dog_1.bark.length > dog_2.bark.length
+      return dog_1.name
+    elsif dog_1.bark.length < dog_2.bark.length
+      return dog_2.name
+    else
+      return nil
+    end
+  end
+
+  def name
+    @name
+  end
+
+  def bark
+    @bark
+  end
+end
+
+d1 = Dog.new("Fido", "woof")
+d2 = Dog.new("Doge", "much bork")
+p Dog.whos_louder(d1, d2) # "Doge"
+
+You may be wondering why we prefer to make Dog::whos_louder a class method. We make this choice because the code inside of the method does not pertain to a single instance of dog, meaning it does not refer to instance attributes of @name, @bark.
+
+
+AN OBJECT IS AN INSTANCE OF A CLASS SO D1 AND D2 ARE OBJECTS AND CAN BE PASSED IN AS PARAMATERS TO A METHOD AS ABOVE
+
+functions can access functions defined outside of them but functions cannot access variables defined outside of them. the same applied for classes who can accesss functions defined outside of them but not variables (unless set to be gloabal)
+
+
+
+
+      should set the instance variable @grades to an empty hash where the default values are distinct empty arrays
+@grades = Hash.new {|hash,k| hash[k]=[]}
+
+Class monkey patching
+
+it means adding additional methods to an existing class
+Ruby types are really classes :Integer, String, Hash etc.
+
+we can write a new method that doesn't exist : String.upcase?
+"hello".upcase? # false
+"HELLO".upcase? # true
+class String
+	def upcase?
+
+	end
+end
+
+IF WE WANT TO REFER TO THE INSTANCE ITSELF WE CAN USE THE SELF KEYWORD, WHEN WE ARE INSIDE A METHOD IN A CLASS THE SELF KEYWORD IS EQUIVALENT TO THE THING THAT COMES BEFORE THE DOT IN THE CALLING OF THE METHOD:
+
+class String
+	def upcase?
+		p self
+	end
+end
+"hello".upcase?
+# returns "hello" to the console
+
+
+so now we can use self to call the original upcase method:
+class String
+	def upcase?
+		self.upcase == self
+	end
+end
+"hello".upcase?
+
+we can also add functionality to integers like prime? which doesn't exist:
+class Integer
+	def prime?
+	return false if self < 2
+	(2...self).each do |factor|
+		if self % factor ==0
+			return false
+		end
+	end
+	return true
+end
+7.prime?
+returns true
+
+now we write an Array method to check if an array contains atleast one zero inside
+
+class Array
+	def has_zero?
+	self.include(0)
+	end
+end
+p [4,2,3,0,"hello"].haszero? #true
+p [4,2,3,"hello"].haszero? #false
+
+require_relative "./filepath" is used to import one file into another
+require is used for things where the filepath is already known.
+
+user input:
+gets method is built in to allow a user to give input. gets will halt the execution of the code until user hits enter after typing characters and returns a string containing character quotes
+\n is appending to end of string after hitting enter
+can use chomp string method to remove all newline characters at the end of a string returning a new string
+
+
+Object Oriented Programming
+Abstraction
+
+In OOP, abstraction is the process of exposing essential features of an object while hiding inner details that are not necessary to using the feature. Take this analogy: Many drivers do not understand the mechanical details of how a steering wheel works, but they can still use the steering wheel to drive a car. In a similar way, our classes should have methods that are simple to use because they hide complex logic inside of them. Let's explore some examples.
+
+Below is a class that does not abstract how to enroll a student into a course:
+
+class Course
+  def initialize(name, teachers, max_students)
+    @name = name
+    @teachers = teachers
+    @max_students = max_students
+    @students = []
+  end
+
+  def max_students
+    @max_students
+  end
+
+  def students
+    @students
+  end
+end  
+
+course = Course.new("Object Oriented Programming 101", ["Ada Lovelace", "Brian Kernighan"], 3)
+
+# Let's to enroll a student
+if course.students.length < course.max_students
+  course.students << "Alice"
+end
+Below is the class with a nicely abstracted #enroll method:
+
+class Course
+  def initialize(name, teachers, max_students)
+    @name = name
+    @teachers = teachers
+    @max_students = max_students
+    @students = []
+  end
+
+  def enroll(student)
+    @students << student if @students.length < @max_students
+  end
+end  
+
+course = Course.new("Object Oriented Programming 101", ["Ada Lovelace", "Brian Kernighan"], 3)
+
+# Let's to enroll a student
+course.enroll("Alice")
+Abstraction results in code that is readable and easy to use. There could be many steps that need to take place when a student is enrolled, and a #enroll method can take care of all of them behind the scenes, unknown to the user of the class.
+
+We have been using this concept of abstraction all the time! Array is a class and Array#include? is a method that we feel comfortable using although we do not know the exact implementation details within the method.
+
+
+Encapsulation
+Similar to abstraction, encapsulation closely relates methods and data attributes together with the hope of preventing misuse. For us, the goal of encapsulation is to give users access to the things that are safe for them to use. Some data we may choose to keep private or purposefully hide from outside users for the sake of security. One common way to encapsulate data attributes is by making them only accessible through methods that we explicitly design as programmers!
+
+Here's some food for thought: Ruby classes have some level of encapsulation by default. How so? Well, if we create a class with attributes, those attributes are inaccessible from the outside unless we define getter or setter methods too!
+
+Design your code in a way that safeguards against misuse! Let's take a look at an example. Say we wanted a class to track the order of people waiting in a line. We call this concept a Queue. The rules of a Queue are simple: if you are the first one in, then you are also the first one out. No cutting the line! More programmatically, we remove from the front of the line, but we add to the back of the line.
+
+We'll use the index 0 of an array to represent what is at the front of the line.
+
+Let's take a look at a properly encapsulated Queue class.
+
+class Queue
+  def initialize
+    @line = []
+  end
+
+  def add(ele)
+    @line << ele # add ele to back of line
+    nil
+  end
+
+  def remove
+    @line.shift  # remove front ele of line
+  end
+end
+
+grocery_checkout = Queue.new
+
+grocery_checkout.add("bob")
+grocery_checkout.add("alice")
+grocery_checkout.remove          # => "bob"
+grocery_checkout.add("noam")
+grocery_checkout.add("donald")
+grocery_checkout.remove          # => "alice"
+grocery_checkout.remove          # => "noam"
+grocery_checkout.remove          # => "donald"
+
+# people who are added first to the line will leave first!
+You'll notice that above we decided to not include a getter for @line, that is because we shouldn't include a full getter. If we give the user full access to the @line then we can't enforce any of our rules and the result is disastrous:
+
+# this class fails to encapsulate
+class Queue
+  def initialize
+    @line = []
+  end
+
+  def line
+    @line
+  end
+
+  def add(ele)
+    @line << ele # add ele to back of line
+    nil
+  end
+
+  def remove
+    @line.shift  # remove front ele of line
+  end
+end
+
+grocery_checkout = Queue.new
+
+grocery_checkout.add("bob")
+grocery_checkout.add("alice")
+grocery_checkout.line.unshift("noam")   # noam cut the line!
+grocery_checkout.remove                 
+
+
+
+ute Methods
+Let's learn some new methods that can clean up the way we write our classes. So far in the course, we've had to manually implement getter and setter methods for our attributes. Below is a class with some classic getter/setter methods that we'll refactor. Using what we learned so far in the course:
+
+class Dog
+  def initialize(name, age, favorite_food)
+    @name = name
+    @age = age
+    @favorite_food = favorite_food
+  end
+
+  # getters
+  def name
+    @name
+  end
+
+  def age
+    @age
+  end
+
+  # setters
+  def name=(new_name)
+    @name = new_name
+  end
+
+  def age=(new_age)
+    @age = new_age
+  end
+end
+attr_reader
+Creating getter methods for the attributes we want to expose is pretty repetitive. Let's use a new method attr_reader, to create the getters for name and age automatically:
+
+class Dog
+  # attr_reader will define #name and #age getters for us
+  attr_reader :name, :age
+
+  def initialize(name, age, favorite_food)
+    @name = name
+    @age = age
+    @favorite_food = favorite_food
+  end
+end
+
+dog = Dog.new("Fido", 3, "pizza")
+dog.name
+dog.age
+dog.favorite_food # NoMethodError: undefined method `favorite_food', because we didn't pass it to attr_reader
+Let's break down the new line above. attr_reader is a built in ruby method that we are calling inside of the Dog class. Note that we don't call it within initialize. attr_reader should be passed symbols that correspond to the names of the attributes we want to have getters for.
+
+In other words, when we have this call to attr_reader:
+
+class MyClass
+  attr_reader :attribute_1
+  # ...
+end
+It would result in this getter method being defined under the hood:
+
+class MyClass
+  # ...
+  def attribute_1
+    @attribute_1
+  end
+end
+Don't be thrown off by the syntax we use to call attr_reader. By convention in Ruby, we omit the parentheses for attr methods. However, attr_reader :name, :age is equivalent to the explicit attr_reader(:name, :age).
+
+attr_writer
+In a similar way, we can use attr_writer to define setter methods:
+
+class Dog
+  # attr_writer will define #name= and #age= setters for us
+  attr_writer :name, :age
+
+  def initialize(name, age, favorite_food)
+    @name = name
+    @age = age
+    @favorite_food = favorite_food
+  end
+end
+
+dog = Dog.new("Fido", 3, "pizza")
+
+dog.name = "Spot"
+dog.age += 1
+
+p dog #<Dog:0x007fd87f1144a0 @age=4, @favorite_food="pizza", @name="Spot">
+
+dog.favorite_food = "calzone" # NoMethodError: undefined method `favorite_food=', because we did't pass it to attr_writer
+In other words, when we have this call to attr_writer:
+
+class MyClass
+  attr_writer :attribute_1
+  # ...
+end
+It would result in this setter method being defined under the hood:
+
+class MyClass
+  # ...
+  def attribute_1=(new_val)
+    @attribute_1 = new_val
+  end
+end
+attr_accessor
+Often times we may want to both a getter and setter for an attribute. If we are in this scenario, we can use the attr_accessor method. It is a combination of attr_reader and attr_writer in that it will create both getters and setters for the specified attributes.
+
+class Dog
+  # attr_accessor will define #name, #name=, #age, #age= methods for us
+  attr_accessor :name, :age
+
+  def initialize(name, age, favorite_food)
+    @name = name
+    @age = age
+    @favorite_food = favorite_food
+  end
+end
+
+dog = Dog.new("Fido", 3, "pizza")
+
+# Let's use the setter and getter for name!
+dog.name = "Spot"
+p dog.name          # "Spot"
+Wrapping Up
+Awesome, our code looks much cleaner! However, be cautious. Like we explored in our chat about encapsulation, don't just take all your class's attributes and pass them to attr_accessor. Consider if a user of the class needs to manipulate that data with a raw getter or setter. Or more importantly consider if it is safe for a user to do so. Only use getters and setters for what you want to expose in your classes.
+
+
+Syntactic Sugar
+As you've been learning with us through the course, you may have noticed we often write code in a particular way only to replace that code style with a shortcut that is more elegant and preferred later on. We introduce the longhand ways of writing things first so you have deep understanding of the underlying concepts. Once you do learn the shortcuts, you also have an appreciation of how expressive of a language Ruby is! There's a method to the madness.†
+
+The previous attr methods are a good example of this. The broad name for code or syntax that is a "shortcut" for other code is "Syntactic Sugar". For example, attr_reader is syntactic sugar for defining a full getter method! We use syntactic sugar to sweeten up our code, making it more readable.
+
+Let's explore some syntactic sugar methods we can use in our classes:
+
+Implementing "operator" Methods
+Like we alluded to in previous sections of the course. You can implement +, ==, >, etc.. methods on your classes. Let's say we had a Person class and we wanted to implement equality, ==, on the basis of last_name:
+
+class Person
+  attr_reader :first_name, :last_name
+
+  def initialize(first_name, last_name, age)
+    @first_name = first_name
+    @last_name = last_name
+    @age = age
+  end
+
+  def ==(other_person)
+    self.last_name == other_person.last_name
+  end
+end
+
+person_1 = Person.new("Jane", "Doe", 20)
+person_2 = Person.new("John", "Doe", 18)
+person_3 = Person.new("John", "Wayne", 18)
+
+# Calling Person#== without any syntactic sugar is awkward:
+p person_1.==(person_2)     # true
+
+# With syntactic sugar, it's much more elegant:
+p person_1 == person_2      # true
+p person_2 == person_3      # false
+As always, if you treat Person#== as a method where "==" is the name, then we can call it with person_1.==(person_2). In this context since person_1 is the object calling ==, self will refer to person_1 inside of the method. person_2 is obviously the other_person argument since it is being passed as an arg within the parens. Syntactic sugar comes in when we drop the . and (). The resulting calls are much cleaner!
+
+For these methods like ==, +, >, etc. you can typically identify the object to the left as what self will refer to within the method. The argument will be the object to the right. This is exactly the case in our Person#== method.
+
+Implementing Bracket Methods
+Let's explore how to implement a custom #[] method on our classes. We often use this method to index an Array or key a Hash.
+
+Say we wanted to have a Queue#[] method to return the element at the given position in the @line. Like we explored in our abstraction and encapsulation lesson, we want to avoid giving direct access to the @line array.
+
+class Queue
+  def initialize
+    @line = []
+  end
+
+  def [](position)
+    @line[position]
+  end
+
+  def add(ele)
+    @line << ele # add ele to back of line
+    nil
+  end
+
+  def remove
+    @line.shift  # remove front ele of line
+  end
+end
+
+grocery_checkout = Queue.new
+grocery_checkout.add("Alan")
+grocery_checkout.add("Alonzo")
+
+# Calling Queue#[] without any syntactic sugar is ugly:
+grocery_checkout.[](0)          # "Alan"
+grocery_checkout.[](1)          # "Alonzo"
+
+# With syntactic sugar, it's waaaaay better:
+grocery_checkout[0]             # "Alan"
+grocery_checkout[1]             # "Alonzo"
+Notice that the syntactic sugar when calling the #[] method is more involved than the previous examples. grocery_checkout.[](1) is equivalent to grocery_checkout[1]. Using the syntactic sugar, we can put a number between the square brackets and it will be interpreted as the first arg to the #[] method.
+
+Implementing #[]=
+        can refer to within class method using sytactic sugar as self[position] = :S
+Building off of the #[] method what if I wanted the ability to assign to a specified position by implementing a #[]= method? Let's take a look at how we can define this special setter:
+
+class Queue
+  def initialize
+    @line = []
+  end
+
+  def [](position)
+    @line[position]
+  end
+
+  def []=(position, ele)
+    @line[position] = ele
+  end
+
+  def add(ele)
+    @line << ele # add ele to back of line
+    nil
+  end
+  def remove
+    @line.shift  # remove front ele of line
+  end
+end
+
+grocery_checkout = Queue.new
+grocery_checkout.add("Alan")
+grocery_checkout.add("Alonzo")
+
+# Let's call Queue#[]= without syntactic sugar:
+grocery_checkout.[]=(0, "Grace")
+p grocery_checkout    #<Queue:0x007fe7a7a29ec8 @line=["Grace", "Alonzo"]>
+
+# Let's call Queue#[]= again, but with syntactic sugar:
+grocery_checkout[1] = "Grace"
+p grocery_checkout    #<Queue:0x007fe7a7a29ec8 @line=["Grace", "Grace"]>
+From the above we see that grocery_checkout.[]=(0, "Grace") is equivalent to grocery_checkout[0] = "Grace". Looking at how we defined the []= method, we can gather that when we use the syntactic sugar for calling []=, the data that we put between the brackets will be the first argument, and what comes after the equal sign will be the second argument to our method
+
+† pun intended
+RECURSION NOTES
+
+IMPORTANT TO NOTE FOR RECURSION, SEPERATE CALLS TO METHODS DO NOT MODIFY SAME "COPY OF VARIABLE"
+def changer(arg)
+a=arg
+    p a
+    return
+end
+
+changer(5)
+changer(6)
+
+Whenever we call a method, some of our system's memory must be allocated to execute that method call. This is known as adding to the stack. Since our say_hello code continuously calls methods forever, we will run out of space on the stack (run out of memory) and crash!
+
+def count_down(num)
+    # base case
+    if num == 0
+        p "Houston, we have lift-off!"
+        return;
+    end
+
+    p num
+    # recursive step
+    count_down(num - 1)
+end
+
+
+Because every recursive problem must have a base and recursive case, we can follow these steps to help us write a recursive method:
+
+Identify the base case in the problem and code it. The base case should explicity handle the scenario(s) where the arguments are so trivially "small", that we immediately know the result without further calculation. Be sure it works by testing it.
+Solve the next level of the problem, using the result of the base case. Test it.
+Modify the code in step 2, generalizing it for every level of the problem.
+
+
+Spaceship operator
+
+a < b   # => false
+Since the expression above evaluates to false, it can either be the case that "a is equal to b" or "a is greater than b". If we need to know exactly which one is the case, a simple check using < won't be enough since the output only tells us that "a is not less than b". However, we can use the spaceship operator to get an unambigious signal to where a and b lie on the number line relative to each other.
+
+How it Works
+The spaceship operator <=> is used between two values and will return -1, 0, or 1. The behavior is as follows:
+
+given the expression a <=> b
+it will return -1 if a is less than b
+it will return 0 if a is equal to b
+it will return 1 if a is greater than b
+Here are a few examples of spaceship operator being 
+
+
+
+
+ It is the case that every value in Ruby can be treated as true (truthy) or as false (falsey). Remembering which values are truthy and which are falsey in Ruby is simple:
+
+nil and false are the only falsey values
+everything else is truthy
+
+
+Note that these rules for truthy vs falsey are specific to Ruby. Other languages may differ in their truthy and falsey values. For example, in JavaScript, the number 0 and the empty string "" are considered falsey as well. This is not the case in Ruby.
+
+
+What does logical OR really do?
+So far in the course, we've been thinking about how || works in a somewhat naive way. You probably agree with following description of the expression a || b, where a and b are any values :
+
+when at least one value is true, we return true
+when both sides are false, we return false
+While "correct", this does not fully describe || in a way that shows it's full potential. Here is a more complete description of how a || b behaves under the hood:
+
+when a is truthy, return a
+when a is falsey, return b
+With this second description in mind, we can use || on any values:
+
+true || 42          # => true
+42 || true          # => 42
+false || 42         # => 42
+42 || false         # => 42
+false || "hello"    # => "hello"
+nil || "hello"      # => "hello"
+"hi" || "hello"     # => "hi"
+0 || true           # => 0
+false || nil        # => nil
+
+
+Default Arguments
+Using the evaluation of || in this way is particularly useful when implementing default arguments for our methods. Take the following code as an example:
+
+def greet(person = nil)
+    if person.nil?
+        person = "you"
+    end
+
+    p "Hey " + person
+end
+
+greet("Brian")  # => "Hey Brian"
+greet           # => "Hey you"
+We can refactor the conditional by utilizing || and the fact that nil is a falsey value:
+
+def greet(person = nil)
+    person = person || "you"
+    p "Hey " + person
+end
+
+greet("Brian")  # => "Hey Brian"
+greet           # => "Hey you"
+But wait, there's more! We can utilize our classic shorthand. We commonly write a += b in place of a = a + b. In the same way, we can write a ||= b in place of a = a || b :
+
+def greet(person = nil)
+    person ||= "you"
+    p "Hey " + person
+end
+
+greet("Brian")  # => "Hey Brian"
+greet           # => "Hey you"
+You're probably wondering why we don't simply assign person = "you" directly in the parameter list for the method. You are right! We should to make the code as succinct and to the point as possible using that syntax. We'll admit that this was an exercise in getting comfortable utilizing nil as a falsey value for use with ||. But now that we are comfortable with this logic, we can implement default procs up next!
+
+Default Procs
+The ||= pattern is utilized heavily when implementing default procs:
+
+def call_that_proc(val, &prc)
+    prc ||= Proc.new { |data| data.upcase + "!!" }
+    prc.call(val)
+end
+
+p call_that_proc("hey")                                             # => "HEY!!"
+p call_that_proc("programmers") { |data| data * 3 }                 # => "programmersprogrammersprogrammers"
+p call_that_proc("code") { |data| "--" + data.capitalize + "--"}    # => "--Code--"
+You'll notice that in the above code, we don't explicitly assign prc to be nil. This is because prc will automatically contain nil if the method is called without passing in a proc.
+
+
+
+
+
+Lazy Initialization
+The ||= pattern is also useful when implementing Lazy Initialization for classes. Lazy initialization is a design strategy where we delay creation of an object until it is needed. The idea is to avoid slow or costly operations until they are absolutely necessary. This contrasts with our typical classes that preemptively set all attributes up front. For example, take this Restaurant class that initializes all attributes immediately:
+
+class Restaurant
+    attr_accessor :name, :chefs, :menu
+
+    def initialize(name, chefs)
+        @name = name
+        @chefs = chefs
+        @menu = ["sammies", "big ol' cookies", "bean blankies", "chicky catch", "super water"]
+    end
+end
+
+five_star_restaurant = Restaurant.new("Appetizer Academy", ["Marta", "Jon", "Soon-Mi"])
+p five_star_restaurant
+#<Restaurant:0x00007fea7a8c6880 
+# @name="Appetizer Academy", 
+# @chefs=["Marta", "Jon", "Soon-Mi"],
+# @menu=["sammies", "big ol' cookies", "bean blankies", "chicky catch", "super water"]
+#>
+While it is required that @name and @chefs must be assigned immediately in Restaurant#initialize since they are taken in as arguments, it is not necessary that @menu be assigned immediately. Imagine that @menu was a "costly" object like an array of 10,000 elements. Initializing @menu may slow down the creation of the Restaurant. To overcome this, we'll use the lazy initialization pattern to only create the @menu if someone asks for it. In other words, we'll create the @menu in the Restaurant#menu getter if it does not exist already:
+
+class Restaurant
+    attr_accessor :name, :chefs, :menu
+
+    def initialize(name, chefs)
+        @name = name
+        @chefs = chefs
+    end
+
+    def menu
+        @menu ||= ["sammies", "big ol' cookies", "bean blankies", "chicky catch", "super water"]
+    end
+end
+
+five_star_restaurant = Restaurant.new("Appetizer Academy", ["Marta", "Jon", "Soon-Mi"])
+
+p five_star_restaurant
+#<Restaurant:0x00007f90b3922368 
+# @name="Appetizer Academy",
+# @chefs=["Marta", "Jon", "Soon-Mi"]
+#>
+
+p five_star_restaurant.menu
+#["sammies", "big ol' cookies", "bean blankies", "chicky catch", "super water"]
+
+p five_star_restaurant
+#<Restaurant:0x00007f90b3922368
+# @name="Appetizer Academy", 
+# @chefs=["Marta", "Jon", "Soon-Mi"],
+# @menu=["sammies", "big ol' cookies", "bean blankies", "chicky catch", "super water"]
+#>
+Above, notice how the restaurant lacks a @menu until we call the getter! To accomplish this we leveraged the fact that a missing attribute will be nil. That means we can use the ||= pattern!
+
+
+
+class Hash
+    # Write a method, Hash#my_select, that takes in an optional proc argument
+    # The method should return a new hash containing the key-value pairs that return
+    # true when passed into the proc.
+    # If no proc is given, then return a new hash containing the pairs where the key is equal to the value.
+    #
+    # Examples:
+    #
+    # hash_1 = {x: 7, y: 1, z: 8}
+    # hash_1.my_select { |k, v| v.odd? }          # => {x: 7, y: 1}
+    #
+    # hash_2 = {4=>4, 10=>11, 12=>3, 5=>6, 7=>8}
+    # hash_2.my_select { |k, v| k + 1 == v }      # => {10=>11, 5=>6, 7=>8})
+    # hash_2.my_select                            # => {4=>4}
+class Hash    
+def my_select(&prc)
+        new_hash = {}
+        prc ||= Proc.new {|k,v|k==v} 
+        self.each {|k,v| new_hash[k] = v if prc.call(k,v)}
+        
+        new_hash
+    end
+end
+
+
+Overview of Ruby and errors
+Ruby is Dynamic, reflective, multi-paradigm.
+
+in Ruby variables/methods start with lower case letters, and classes start with upper case letters.
+
+
+[2] pry(main)> require 'primes.rb'
+LoadError: cannot load such file -- primes.rb
+There are two very common causes. Sometimes you are trying to load a file that is provided by a gem, but you haven't installed the gem yet.
+
+Another common cause is that you are trying to load another source file in your project, but you forgot the initial './'. Relative includes are used to include files that are inside your project, you write them like this:
+
+[2] pry(main)> require './primes.rb'
+
+
+
+RUBY ____------______-------
+
+References
+
+
+x=4 makes x point to the bucket with 4 in it.
+the arrow is called a reference or synonmously a pointer
+
+if we had:
+x=4
+y=x
+x=10
+when we print y what do we get?
+we assign a pointer not to x but to the place where x points to
+so when we now say x = 10 we remove the pointer x was using and it points to a bucket with 10 in memory so y would still equal 4
+
+now say we had:
+x = 4
+y = x
+x +=2
+what is y?:
+initially x points to 4, then we have y point to 4 also then we evaluate x+2 which is equal to 6. The thing to know here is that the assignment operator CREATES A POINTER and so x now points to a new portion of the memory where 6 lives and y remains equal to 4
+
+There is NOTHING that we can do to x to make y change its value. (y will never point to another value just because you make x point to something else) You cannot change the value of the cell that x is pointing to, each cell contains a unique number the computer can represent. You have to change where x is pointing to to be where the number you want it to point to lives in memory. The places in memory where each unique number lives are called fixnums in ruby, they are immutable.
+
+The reason we get this behaviour is because the fixnum object is immutable but for mutable objects like arrays and strings the behaviour is different:
+x = "Donatello"
+y =x
+x << " the TMNT"
+puts y
+what is y?:
+
+Donatello is stored in memory and is pointed to by x
+y points to donatello also
+ << operator mutates where Donatello is stored in memory so that now y and x both point to:
+"Donatello the TMNT"
+
+x = "Donatello"
+y =x
+x+= " the TMNT"
+puts y
+
+what is y?:
+x points to "Donatello" in memory
+y points to "Donatello" also
+a new area is stored with the value of "Donatello the TMNT" and x is made to point to it
+y remains the same and equals "Donatello"
+
+
+same applies for 1d arrays:
+x = []
+y = x
+x << "Hello"
+y returns ["Hello"]
+
+it can get really weird however for 2d arrays!:
+
+x = Array.new(3,[])
+x[0] << "Hello"
+what happens here is that the 3 element array is stored in one place in memory
+[] is stored in another place in memory and each of the 3 elements of the array point to this one []
+so now x will equal: 
+[["Hello"],["Hello"],["Hello"]]
+
+The story is different if we chose the default value to be an integer, we get the expected results for 1d arrays:
+
+x=Array.new(3,10)
+returns
+[10,10,10]
+x[0]=5
+returns
+[5,10,10]
+because we are using = rather than <<, << is a mutating operation mutating the mutable object that  x[0] is pointing to whereas = is reassigning what x[0] points to and reassigns it to 5 which is at a different place in memory to 10
+
+This is important to keep in mind when you are creating grids for things like board game apps and the like.
+
+In the Ruby language variables hold references to objects.
+
+
+
+def add_to_array!(array, item)
+  array << item
+end
+my_array = []
+add_to_array!(my_array, "an item!")
+p my_array
+
+In the method above, passing in my_array as an argument means that array will reference the same object as my_array and the same is said for item referencing "an item!"
+so inside the method << appends in memory to the object referenced by array the object referenced by item and this change takes place in place so outside the method we can view my_array and see the change
+
+
+arr_of_arrs = Array.new(3) { Array.new }
+
+The block will be run to produce a value to store for each position in the array. The block constructs a new array each time it is run.
+
+For hashes when we create them with default values, we need to assign the keys to values using the equals operator for them to work properly:
+
+[1] pry(main)> cats = Hash.new([])
+=> {}
+[2] pry(main)> cats["Devon"]
+=> []
+[3] pry(main)> cats
+=> {}
+[4] pry(main)> cats["Devon"] += ["Earl"]
+=> ["Earl"]
+[5] pry(main)> cats
+=> {"Devon"=>["Earl"]}
+[6] pry(main)> cats["Devon"] += ["Breakfast"]
+=> ["Earl", "Breakfast"]
+[7] pry(main)> cats
+=> {"Devon"=>["Earl", "Breakfast"]}
+
+which works fine however if we do << to an unassigned key without using = operator then the key is not assigned and we get unexpected results:
+
+[7] pry(main)> cats = Hash.new([])
+=> {}
+[8] pry(main)> cats["John"] << "Kiki" 	# mutates the value that cats["John"] points to.
+=> ["Kiki"]
+[9] pry(main)> cats
+=> {}
+[10] pry(main)> cats["Raul"]
+=> ["Kiki"]
+We can start to fix the problem as before so each default value for each key is a new empty array and mutating for one key does not effect others however we are still not setting any values :
+
+[11] pry(main)> cats2 = Hash.new() { [] }
+=> {}
+[12] pry(main)> cats2["Devon"] << "Breakfast"
+=> ["Breakfast"]
+[13] pry(main)> cats2["George"]
+=> []
+
+[16] pry(main)> cats2
+=> {}
+
+to fix this:
+[17] pry(main)> cats3 = Hash.new { |h, k| h[k] = [] }
+=> {}
+[18] pry(main)> cats3["Devon"]
+=> []
+[19] pry(main)> cats3
+=> {"Devon"=>[]}
+[20] pry(main)> cats3["John"] << "Kiki"
+=> ["Kiki"]
+[21] pry(main)> cats3
+=> {"Devon"=>[], "John"=>["Kiki"]}
+Here we've modified the block to take two arguments: when Hash needs a default value, it will pass itself (h) and the key (k). The block will not only create an empty array, but also assign it to the hash.
+
+You can see one somewhat funny side-effect when we look up "Devon"; even when we just want to lookup a value, if it is not present we'll incur the side-effect of mutating the hash (the key "Devon" got added).
+
+SCOPE
+
+When we open up a block, variables declared within the block will not be accessible once we exit the block. However, if we have declared a variable before we enter the block, we will have access to that variable inside the block. In fact, any changes made to that variable within the block will persist once we've exited the block. Let's see a few examples:
+
+3.times do
+  x = 4
+end
+
+puts x # Error - undefined local variable `x`
+the rule here is as follows: Local variables declared in outer scopes are available, and may be modified, in all inner scopes. Local variables declared in inner scopes are not available in outer scopes.
+
+
+Keep in mind that if/while statements are different than blocks in Ruby, and these rules do not apply. Even though our code inside if/while statements is nested, this code is still treated as part of the outer scope. For example, we can do something like this:
+
+if true
+  i = 2
+end
+
+puts i # outputs 2
+
+
+ The rules change - whenever we define a method, class, or module (you'll learn about those in the near future), we open up what is commonly referred to as a scope gate. What this means is that we lose access to all local variables previously defined and enter a brand new context.
+ We only have access to local variables declared within the method and the parameters of the method. 
+
+
+x = 2
+
+def display_x
+  puts x
+end
+
+display_x # Error - undefined local variable `x`
+
+Based on what we've discussed so far, you may be wondering how we can call methods within other methods, given that every method opens up its own scope gate. The answer is that methods behave differently than local variables. Methods defined in the top level scope are accessible within other methods also defined in the top level scope. The short of it is that these methods actually get defined on an object called main and you are able to call them for the same reason you can call instance methods from other instance methods in a class.
+
+def fourth_power(i)
+  square(i) * square(i)
+end
+
+def square(i)
+  i * i
+end
+
+fourth_power(2) # outputs 16 (2^4)
+
+The above code is able to run without error. It's also worth noting that square is used in fourth_power despite being defined below it. Since we don't call fourth_power until the very last line, we have access to both methods.
+vscode-remote://wsl%2Bubuntu-18.04/home/morris/appAcademyProjects/Ruby/sudoku/puzzles/Board.rb
+While you shouldn't typically create global variables, you can do so with the $ prefix. Once a global variable has been declared, it is available in every scope in your program. Unless you absolutely have to (and you probably don't) you should avoid creating global variables as they are dangerous, and often unnecessary.
+
+Recursion
+quicksort is easiest to write recursively but any recursive algorithm can be written iteratively however it is much more difficult to for quicksort
+quicksort is generally the fastest sorting algorithm:
+class Array
+def quicksort
+return self.dup if self.length <=1
+pivot = self.first
+left = self.drop(1).select { |el| el < pivot}
+right = self.drop(1).select {|e| el >= pivot} # we use >= for duplicates to the pivot
+
+left.quicksort + [pivot] + right.quicksort
+end
+end
+stack overflow
+A stack frame is created each time a function is called and is popped off when the function returns. Recursive functions keep calling itself each time creating a new stack frame and since each is held in memory this can lead to stack overflow. so the variables defined in a function in recursion may have the same names but if they are in different stacks they are seperate and each seperated in memory. The same process does not happen for iterations in a loop
+each element of the stack is called a stack frame
+running out of memory in a recursive loop is called stack overflow
+
+paste this code at the top of a file for a recursive function to view the stack trace of a stack overflow error. The computer gives you around 9000 stack frames before the overflow happens
+
+
+
+Binary Search
+The binary search algorithm begins by comparing the target value to the value of the middle element of the sorted array. If the target value is equal to the middle element's value, then the position is returned and the search is finished. If the target value is less than the middle element's value, then the search continues on the lower half of the array; or if the target value is greater than the middle element's value, then the search continues on the upper half of the array. This process continues, eliminating half of the elements, and comparing the target value to the value of the middle element of the remaining elements - until the target value is either found (and its associated element position is returned), or until the entire array has been searched (and "not found" is returned).
+
+Write a recursive binary search: bsearch(array, target). Note that binary search only works on sorted arrays.
+
+def bsearch(nums, target)
+    # nil if not found; can't find anything in an empty array
+    return nil if nums.empty?
+  
+    probe_index = nums.length / 2
+    case target <=> nums[probe_index]
+    when -1
+      # search in left
+      bsearch(nums.take(probe_index), target)
+    when 0
+      probe_index # found it!
+    when 1
+      # search in the right; don't forget that the right subarray starts
+      # at `probe_index + 1`, so we need to offset by that amount.
+      sub_answer = bsearch(nums.drop(probe_index + 1), target)
+      sub_answer.nil? ? nil : (probe_index + 1) + sub_answer
+    end
+  
+    # Note that the array size is always decreasing through each
+    # recursive call, so we'll either find the item, or eventually end
+    # up with an empty array.
+  end
+
+
+merge sort
+
+class Array
+  def merge_sort
+    return self if count < 2
+
+    middle = count / 2
+
+    left, right = self.take(middle), self.drop(middle)
+    sorted_left, sorted_right = left.merge_sort, right.merge_sort
+
+    merge(sorted_left, sorted_right)
+  end
+
+  def merge(left, right)
+    merged_array = []
+    until left.empty? || right.empty?
+      merged_array << (left.first < right.first) ? left.shift : right.shift
+    end
+
+    merged_array + left + right
+  end
+end
+
+
+Git
+
+git diff
+outputs which line you changed in a file 
+
+git diff --staged
+shows changes to the files that are in the staging area (after git add)
+
+git log shows the commit history
+
+git branch shows all the branches
+git checkout -b add_cheryl 
+creates the branch add_cheryl
+now git branch will show add_cheryl
+
+and you can now make changes and commit them as normally and it will commit to the add_cheryl branch instead of master
+
+then after committing to add cheryl we can merge the changes to that branch to the master branch:
+git checkout master
+git merge add_cheryl
+and this merges add_cheryl to master
+git branch -d branchname		will delete the branch
+git remote add origin <github link>
+essentially means to call the github link origin
+git push -u origin master
+this pushes the master branch to origin
+we can view a previous version by moving the head from the tip of master backwards using
+git log
+then git checkout <hash of version you want to show>
+you can revert back to move the head to the tip of master using:
+ git checkout master
+git reset --hard 
+will reset the file system to how it was at the last commit. This wipes out all changes made and is used if you screwed up a file.
+this will mean that any changes since the last  commit that are in the staged area (are tracked) are wiped out and the changes are deleted.
+git reset <filepath> just unstages the file if you ran git add on it by accident for example
+git add -A adds all files to staging area
+
+git init
+When you first begin your project, use git init to setup a git repository. You should do this before you write any code.
+
+git commit creates a snapshot that lives in your local repository but does not push the files to a remote repository yet.
+
+commiting creates the snapshot in the log file and needs to be done frequently
+
+Simple Git Workflow
+Git is a powerful tool, and it will take time to take full advantage of its features. When starting out, however, you only need a few commands to protect your work.
+
+Setup
+You should use Git's command line interface. When starting your project, there are two essential commands.
+
+git init
+git remote add your_alias https://github.com/your_username/your_repo_name
+Let's break this down line by line:
+
+git init
+This creates an empty repo in the current directory. Git looks at the current directory and its children: this means that you should create the repo at the root level of your project. In particular, in a Rails project, you want to run rails new, cd into the directory you just created, then run git init.
+
+git remote add your_alias https://github.com/your_username/your_repo_name
+This command breaks down into the following components:
+
+git remote accesses the git commands that interact with remote repos
+add (not to be confused with git add) is a git remote command that adds a remote repo to the current repo
+your_alias sets a name you can use locally to refer to the remote repo; use origin unless you have a reason not to
+https://github.com/your_username/your_repo_name sets the location of the repo (this example is for HTTPS; for SSH, it will look different). You will have to create this separately, either in the browser or through the command line
+At this point, you have a local repo (stored in the .git directory) and a remote repo, which you can reference with your_alias; time to start working.
+
+Working
+Now you've written some code and are ready to commit. You need three commands:
+
+# add/update specific files
+git add <files>
+# add/update all files
+git add -A
+
+git commit -m "Some comment"
+git push
+Line by line:
+
+git add <files>: adds changes to listed files to staging area
+git add -A: adds changes to all files in the working directory to the staging area
+So far, all we've done is told git to prepare to commit; nothing is persisted to the repository.
+
+git commit -m '[Your commit message here]': takes currently staged changes and stores them in the repository. -m is a flag indicating that we want to write our commit message on the command line rather than in our default editor. A commit message is a brief summary of the changes that we're committing. Your commit message should be descriptive and written in the imperative, so that someone reading your commit history (maybe you!) can understand what you changed. Always start your commit messages with with a capital letter, an imperative verb and leave off any trailing punctuation.
+At this point, our local repository has a record of the commit, but we haven't touched the remote repo.
+
+git push: pushes our local commits to the remote repository. The first time you run this, you need to run the command as git push -u your_alias main, which will set the main branch in the remote repo your_alias as the upstream tracking branch for your local branch. Once you have set this up, you will be able to run git push and git will direct the push to the upstream repo. To push to a particular remote, use git push remote_name branch_name (for example, git push origin main).
+If you are using HTTPS, you will need to authenticate with GitHub when you push; when using SSH, your computer and the server will use your SSH key to handle this for you. For this reason, it is worth setting up SSH on your dev machine. On App Academy machines, use HTTPS.
+
+How to Change Default Branch Name
+After your first commit, you will want to change your default branch to be called main. In the past, the default branch was called master, but in the efforts to use more inclusive language we will be using main going forward.
+
+Run git branch -M main to name your default branch to main.
+How would you create a new branch and switch to it at the same time?
+
+answer:
+
+git checkout -b
+
+
+
+EXPLANATION
+git checkout -b will do both for 
+You will likely encounter branches named master in the wild, so it will good to think of master and main interchangeably going forward.
+
+How Often to Commit and Push
+Frequently.
+
+Pushing to GitHub is one of the most useful features we have in Git. This is because, ultimately, code problems are always fixable: if you can create a bug, you can eliminate it through debugging alone (not that you shouldn't revert to a previous commit if that is the best solution). Pushing to a remote does a few additional things:
+
+Backs up your work
+Makes your code portable
+Gets you green squares
+A good rule of thumb is to commit whenever you make something and confirm that it works (the second part is important; you don't want non-functional commits cluttering your repos). Most commits will be small; this is good, as it reduces the cost of reverting to a previous stage. You don't have to push every time you commit, but there is usually no reason not to.
+
+Use git add <files> or git add -A instead of git add . or git add -u.
+You should be adding individual files as you create them and running git add <file>.
+git add -u adds all new and updated files (but doesn't include deleted files!) - this command isn't as relevant when using Git 2.0.
+git add -A Finds new files as well as updating old files. (git add . + git add -u)
+git add .  adds everything that is new/has changed in the current directory
+
+Creating an alias
+To create a persistent alias, you add a line to your shell's configuration file. The specific name of this file can vary between systems. On my Mac, ~/.bash_profile does the job; on other systems, you might want ~/.bashrc or ~/.zshrc. Open your config file (ex. code ~/.bash_profile) and add your desired alias on a new line at the end of file, formatted like so:
+
+alias gcm='git commit -m'
+
+git config --global alias.s "status" so now can use git s instead of git status
+Serialization
+
+Serialization and Persistence
+Serialization
+Ruby objects live within the context of a Ruby program. You may want to send your Ruby object to another computer across a network. Alternatively, you may want to save your Ruby object to the hard drive, so that when you run your program again later, it might be reloaded. You cannot do either of these things directly.
+
+To do this you need to first convert the Ruby object into a representation that can be saved to disk or sent over a network. This process is called serialization.
+
+There are many, many serialization formats, or ways of representing data. Probably the most important in the web world is JSON:
+
+{ "fieldA": "valueA",
+  "fieldB": [1, 2, 3] }
+JSON supports a few primitive forms of data: numbers, strings, arrays and hashes. It is descended from JavaScript, and is commonly used as the message format for web APIs. The format is pretty easy to read, but it's not essential that you be able to write JSON yourself; we'll see how to get Ruby to do that for us.
+
+You can easily serialize basic Ruby objects to a JSON string:
+
+> require 'json'
+> { "a" => "always",
+    "b" => "be",
+    "c" => "closing" }.to_json
+=> '{"a":"always","b":"be","c":"closing"}'
+> JSON.parse('{"a":"always","b":"be","c":"closing"}')
+=> {"a"=>"always", "b"=>"be", "c"=>"closing"}
+JSON doesn't know how to serialize more complicated classes though:
+
+> Cat.new("Breakfast", 8, "San Francisco").to_json
+=> '"#<Cat:0x007fb87c81b398>"'
+You can fix this somewhat by defining a to_json method on your classes, but that involves you writing custom serialization code. It will also be a pain to do the opposite translation.
+
+YAML
+YAML is meant to solve the problem of saving custom classes.
+
+[11] pry(main)> require 'yaml'
+[12] pry(main)> c = Cat.new("Breakfast", 8, "San Francisco")
+=> #<Cat:0x007ff434926690 @age=8, @city="San Francisco", @name="Breakfast">
+[13] pry(main)> puts c.to_yaml
+--- !ruby/object:Cat
+name: Breakfast
+age: 8
+city: San Francisco
+=> nil
+[14] pry(main)> serialized_cat = c.to_yaml
+=> "--- !ruby/object:Cat\nname: Breakfast\nage: 8\ncity: San Francisco\n"
+[15] pry(main)> puts serialized_cat
+--- !ruby/object:Cat
+name: Breakfast
+age: 8
+city: San Francisco
+=> nil
+[16] pry(main)> c2 = YAML::load(serialized_cat)
+=> #<Cat:0x007ff4348098e8 @age=8, @city="San Francisco", @name="Breakfast">
+Notice that YAML has saved the instance variables of the object, as well as recording the class of object that was saved.
+
+Note that c and c2 are different objects; serialization and deserialization are sometimes used as a very lazy man's clone. Don't do this: it is inefficient and spares you the valuable learning experience of figuring out how to properly create a deep copy of an object.
+
+JSON is the dominant serialization technology on the web (XML is a close second); we'll write Rails apps which we can communicate with by sending and receiving JSON data.
+
+In the world of server-side Ruby, YAML is the leader because of its better support for deserializing classes.
+
+
+When designing classes for games typically you have sepearte class(es) for  unit(s) of the game and a seperate class called something like game that has all the user interaction and turn taking logic and a board class that contains all the sub classes for the units
+
+within class methods, self is equal to class name
+within instance methods self is equal to instance of class
+
+
+  def plant_bombs
+    total_bombs = 0
+    while total_bombs < @num_bombs
+      rand_pos = Array.new(2) { rand(@grid_size) }
+
+      tile = self[rand_pos]
+      next if tile.bombed?
+
+      tile.plant_bomb
+      total_bombs += 1
+    end
+
+    nil
+  end
+we can override inspect to show what is printed to the screen from an object when using puts.
+class PolyTreeNode
+  # ...
+  # ...
+  def inspect
+    { 'value' => @value, 'parent_value' => @parent.value }.inspect
+  end
+end
+
+Data Structures
+
+an Abstract data type is more general than a specific implementation of a data structure
+one example is a set. A set is a collection of unique objects
+a set has include? which checks for inclusion, set ( push) ,delete
+
+you could implement a set with an array but have to make sure you dont include duplicates checking each element by iteration
+
+could also implement a set with a hashmap
+could set value as true or whatever and the key as the actual object and don't have to worry about duplicates and can already check for inclusion.
+so 2 ways can implement an api. (same public methods)
+
+another ADT is a map also known as a dictionary it has 3 methods, set, get and delete
+set a key, get a key and delete a key
+set(k,v)
+get(k) (aka include?)
+delete(k)
+
+a hashmap is a specific way of implementing a map but a map is just a set of key value pairs
+arrays can also implement maps as a list of arrays with 2 element sub array but it is not a good way of doing so
+you would iterate through it and check if a key exists in first of 2 elements and return second if so, for set you look for the key and if not add key value pair to end.
+
+ADTs guarantee that you have functionality of an api it is expecting.
+
+certain algorithms will only work if you use certain ADTs but they can be implemented with many different data structures though some data structures may be preferred the algorithm will still work.
+
+a Stack is an abstract data structure
+they follow last in first out. (LIFO). it is unfair. The first person in is the last out
+only the most recent addition to the stack (the top of the stack) has to be removed first.
+a stack only supports the push and pop methods.
+simplest way to implement them is an array.
+ANY RECURSIVE ALGORITHM CAN BE IMPLEMENTED ITERATIVELY BUT IN ORDER TO DO SO THE STACK HAS TO BE THERE, THE STACK IS PART OF THE RECURSIVE ALGORITHM.
+ALMOST ALWAYS AN ITERATIVE ALGORITHM IS AT LEAST SLIGHTLY FASTER THAN A RECURSIVE ONE BECAUSE THERE IS LESS OVERHEAD
+
+the opposite of a stack is an ADT known as a QUEUE
+A queue is where the person at the front of the line gets served (dequed) and a person to join the line you enque. A queue is first in first out (FIFO)
+you can implement a queue in ruby using these pairs of operations:
+Either 
+push and shift
+or
+unshift and pop
+depending on which way the queue is going from left to right or right to left.
+Arrays are usually used to implement queue.
+
+Another Abstract data type is called a tree.
+A binary tree is very common, each node has a maximum of 2 children.
+A tree always has directionality
+a single node is also a tree, the base case.
+ternary trees have every node has at most 3 children
+unary trees are also possible but are known as a linked list.
+A polytree can have any number of children
+subtrees of a particular tree can be rooted at particular nodes and contain all nodes below it and itself.
+There is also the depth of the tree
+
+Breadth first search (BFS)
+starts at first layer and goes through it left to right,
+then moves to next layer and goes through left to right etc.
+
+There are 2 ways to  do depth first search though.
+
+the iIt always runs straight to the bottom however as fast as it can
+
+The BFS algorithm to traverse a tree can be implemented using a queue as below
+starting at the root. where process(el) can be printing the element or checking it equals a certain value or adding to sum etc.
+queue = [root]
+until queue.empty?
+el=queue.shift
+process!(el)
+el.children.each { |child| queue << child}
+end
+
+
+A more efficient thing would be if the required value is in the queue to just return it so dont have to process all the parents of it as well.
+Depth First Search
+Depth first search is implemented using a stack and since it uses a stack it can be written recursively!
+Def dfs(root,target)
+Base cases are:
+If Root.nil? -> return nil	(case of empty tree (the nil tree))
+Root.val == target => root
+Inductive step: left.dfs or right.dfs
+So formally in ruby:
+def(root,target)
+return nil if root is nil
+return root if root.val == target
+root.children.each do |child|
+search-result = dfs(child,target)
+return search_result unless search_result.nil?
+end
+nil
+end
+
+For DFS, we will look at a node, and then look at it's first child, and then that nodes first child and so on until we hit a leaf node or find the node we are searching for. When we hit a leaf node, we will begin popping off the stack of recursive calls (going back up the tree a level at a time) and looking at the next child for that node. Once we find the node we are looking for, we start popping off the stack of recursive calls returning the node we found that has the value we are looking for.
+
+
+PUTTING A FUNCTION IN AN IF STATEMENT CONDITION EVALUATES THE FUNCTION
+Recursive deep_dup method
+  def deep_dup(arr)
+    arr.map { |el| el.is_a?(Array) ? deep_dup(el) : el }
+  end  
+
+
+
+OOP Ruby
+
+Inheritance
+
+class User
+  attr_reader :first_name, :last_name
+
+  def initialize(first_name, last_name)
+    @first_name, @last_name = first_name, last_name
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def upvote_article(article)
+    article.upvotes += 1
+  end
+end
+
+class SuperUser < User
+  attr_reader :super_powers
+
+  def initialize(first_name, last_name, super_powers)
+    super(first_name, last_name)
+    @super_powers = super_powers
+  end
+
+  def upvote_article(article)
+    # extra votes
+    article.upvotes += 3
+  end
+
+  def delete_user(user)
+    return unless super_powers.include?(:user_deletion)
+
+    # super user is authorized to delete user
+    puts "Goodbye, #{user.full_name}!"
+  end
+end
+Here we use < to denote that the SuperUser class inherits from the User class. That means that the SuperUser class gets all of the methods of the User class. We say that User is the parent class or superclass, and that SuperUser is the child class or subclass. So we can write code like so:
+[13] pry(main)> load 'test.rb'
+=> true
+[14] pry(main)> u = User.new("Jamis", "Buck")
+=> #<User:0x007f9ba9897d98 @first_name="Jamis", @last_name="Buck">
+[15] pry(main)> u.full_name
+=> "Jamis Buck"
+[16] pry(main)> su = SuperUser.new("David", "Heinemeier Hansson", [:user_deletion])
+=> #<SuperUser:0x007f9ba98e66c8
+ @first_name="David",
+ @last_name="Heinemeier Hansson",
+ @super_powers=[:user_deletion]>
+[17] pry(main)> su.full_name
+=> "David Heinemeier Hansson"
+[18] pry(main)> su.delete_user(u)
+Goodbye, Jamis Buck!
+=> nil
+
+class Magazine
+  attr_accessor :editor
+end
+
+class Book
+  attr_accessor :editor
+end
+We see code being duplicated: a bad sign. We can use inheritance to solve this problem like so:
+class Publication
+  attr_accessor :editor
+end
+
+class Magazine < Publication
+end
+
+class Book < Publication
+end
+
+
+Calling a super method
+When overriding a method, it is common to call the original implementation. We can call the superclass's implementation of any method using the special super keyword. There are two major ways in which super is called. If super is called without any arguments, the arguments passed to the method will be implicitly passed on to the parent class's implementation.
+class Animal
+  def make_n_noises(n = 2)
+    n.times { print "Growl " }
+  end
+end
+
+class Liger < Animal
+  def make_n_noises(num = 4)
+    num.times { print "Roar " }
+    # here we'll call super without any arguments. This will pass on `num`
+    # implicitly to super. You can think of this call to super as:
+    # `super(num)`
+    super
+  end
+end
+
+Liger.new.make_n_noises(3) # => Roar Roar Roar Growl Growl Growl
+
+Exceptions
+, error handling
+Things don't always work out the way you plan. Sometimes your code will experience an error. Exceptions are the means of telling the caller that your code can't do what was asked.
+def sqrt(num)
+  unless num >= 0
+    raise ArgumentError.new "Cannot take sqrt of negative number"
+  end
+
+  # code to calculate square root...
+end
+Since we can't take the square root of a negative number, we raise an exception instead of returning an answer. When an exception is raised, the method stops executing. Instead of returning, an exception is thrown. The method's caller then gets a chance to handle the exception:
+def main
+  # run the main program in a loop
+  while true
+    # get an integer from the user
+    puts "Please input a number"
+    num = gets.to_i
+
+    begin
+      sqrt(num)
+    rescue ArgumentError => e
+      puts "Couldn't take the square root of #{num}"
+      puts "Error was: #{e.message}"
+    end
+  end
+end
+If the user feeds in a negative number, sqrt will raise an exception. Because main has wrapped this code in a begin/rescue/end block, the exception will be caught. The code will jump to the rescue block that anticipates an ArgumentError. It will save the exception in the variable e, then run the error handling code.
+If the calling method doesn't rescue (we also say catch or handle) an exception, it continues to bubble up the call stack. So the caller's caller gets a chance, then their caller, then...
+If no method throughout the entire call stack catches the exception, the exception is printed to the user and the program exits.
+Ensure
+Sometimes there is important code that must be executed whether an exception is raised or otherwise. In this case, we can use ensure.
+begin
+  a_dangerous_operation
+rescue StandardError => e
+  puts "Something went wrong: #{e.message}"
+ensure
+  puts "No matter what, make sure to execute this!"
+end
+A common example is closing files:
+f = File.open
+begin
+  f << a_dangerous_operation
+ensure
+  # must. close. file.
+  f.close
+end
+Retry
+A common response to an error is to try, try again.
+def prompt_name
+  puts "Please input a name:"
+  # split name on spaces
+  name_parts = gets.chomp.split
+
+  if name_parts.count != 2
+    raise "Uh-oh, finnicky parsing!"
+  end
+
+  name_parts
+end
+
+def echo_name
+  begin
+    fname, lname = prompt_name
+
+    puts "Hello #{fname} of #{lname}"
+  rescue
+    puts "Please only use two names."
+    retry
+  end
+end
+The retry keyword will cause Ruby to repeat the begin block from the beginning. It is useful for "looping" until an operation completes successfuly.
+
+Note: the code will not hit the ensure block if it is retried. It will only do so if it errors and exits then it will run the ensure block	
+
+Implicit Begin Blocks
+Method and class definitions are implicitly wrapped in a begin/end block, so if your error handling applies to the whole method, all you have to add is rescue.
+def slope(pos1, pos2)
+  (pos2.y - pos1.y) / (pos2.x - pos1.x)
+rescue ZeroDivisionError
+  nil
+end
+The method from the retry example could also be written this way.
+def echo_name
+  fname, lname = prompt_name
+
+  puts "Hello #{fname} of #{lname}"
+rescue
+  puts "Please only use two names."
+  retry
+end
+
+
+Exception Hierarchy
+There are a number of predefined exception classes in Ruby. You can find them here. You should try to choose an appropriate class. One of the more common exceptions to use is ArgumentError, which signals that an argument passed to a method is invalid. RuntimeError is used for generic errors; this is probably your other goto.
+When creating an exception, you can add an error message so the user knows what went wrong:
+raise RuntimeError.new("Didn't try hard enough")
+If you want your user to be able to distinguish different failure types (perhaps to handle them differently), you can extend StandardError and write your own:
+class EngineStalledError < StandardError
+end
+
+class CollisionOccurredError < StandardError
+end
+
+def drive_car
+  # engine may stall, collision may occur
+end
+
+begin
+  drive_car
+rescue EngineStalledError => e
+  puts "Rescued from engine stalled!"
+rescue CollisionOccurredError => e
+  puts "Rescued from collision!"
+ensure
+  puts "Car stopped."
+end
+
+object decomposition
+ Stored information like a Minnow's position is called the state of an object. Minnows and Sharks have their own way of doing things (they both #swim differently); this is called behavior.
+Object oriented design is about breaking a complex problem down into classes, each of which is responsible for its own state and behavior.
+why is Shark and Minnow the right level of granularity, and not an Aquarium class that is responsible for modeling both sharks and fishes?
+Each class should do one thing. An Aquarium tries to do two things: model fish and model sharks.
+How do we decide what a single responsibility is? The best way to think about it is this: you should define classes at the level of abstraction that you want to make changes at. You might want to make changes to the minnows, but not the sharks, so they should be separate classes.
+
+
+why is Shark and Minnow the right level of granularity, and not an Aquarium class that is responsible for modeling both sharks and fishes?
+Each class should do one thing. An Aquarium tries to do two things: model fish and model sharks.
+How do we decide what a single responsibility is? The best way to think about it is this: you should define classes at the level of abstraction that you want to make changes at. You might want to make changes to the minnows, but not the sharks, so they should be separate classes.
+A good guideline to follow is not to introduce a new subclass until:
+•	You are facing two different subclasses of the base class, AND
+•	The two subclasses have substantially different behavior.
+In short, don't use inheritance until it serves a purpose like keeping your code DRY or helping code organization. Needlessly complicated inheritance hierarchies are a common mistake of novice programmers.
+class Airplane
+  def fly
+    start_engine
+    ...
+  end
+
+  private
+  def start_engine
+    ...
+  end
+end
+All methods after the private keyword are private to the class.
+What kind of methods should be private? Ones which users of the class should not call, either for safety reasons (user doesn't know when they should start_engine) or because they're low-level details that don't concern them (user just wants to fly, doesn't want to know how that happens).
+Instance variables are always "private" in the sense that they are not even methods. You can expose instance variables to the outside world by making public getter/setter methods using attr_accessor and the like.
+
+
+We mentioned safety and a simple interface as reasons that you might want to create private methods. Also, you want to make it easy to change and extend your code. The more you expose to users of the class (whether people or other code), the more they will rely on those details. Whatever you expose will be that much harder to change later after others depend on it.
+The point of object orientation is to present a simple interface, abstracting away the details inside the method implementations. Code that is too permissive breaks those abstractions, leaking internal concerns to the outside world. For instance, if we let a user call start_engines, now they need to remember to later call stop_engines. This makes it harder to use our class.
+
+A good guiding principle of OO design is: minimize the interfaces between your classes; expose the least possible amount of state and behavior, and have a good reason for every piece of information that you expose.
+
+That said, if you miss a method that should be private but is instead public, it won't be a disaster. Myself, I focus on catching cases where a method is obviously internal to the workings of the class. Robust code ready to release to the outside world should eventually be checked for proper use of private, though.
+
+
+Unified Modeling Language
+Unified Modeling Language (UML) is a visual way of describing the relationships between different objects in a system. UML can describe classes (e.g., the structure of an object-oriented software program) or behavior (e.g., diagramming a set of concurrent processes). We will be using UML to model the class structure of our chess game.
+In UML, classes can be related to each other in several different ways, including parent-child and association (a "has a" relationship). Piece is the parent of Pawn, for example, while Game is associated with Board because Game has a (i.e. requires) Board.
+A class is usually drawn in UML with three components: a name, a set of attributes (instance variables), and a set of methods. The attributes and methods are marked as being public (+), private(-), or protected (#), and class methods are underlined.
+ 
+
+Modules and Mixins
+
+Modules
+A Ruby module is like a class, except you don't instantiate a module. Modules consist of methods that can be mixed in to a Ruby class. In Ruby, we use a module to collect methods that may be mixed in and shared by many classes to keep our code DRY.
+Let's see an example:
+module Greetable
+  def greet
+    "Hello, my name is #{self.name}"
+  end
+end
+
+class Human
+  include Greetable
+  
+  def initialize(name)
+    @name = name
+  end
+  
+  def name
+    @name
+  end
+end
+
+class Robot
+  include Greetable
+  
+  def name
+    "Robot Model #2000"
+  end
+end
+We "mix in" a module by using the #include method. This will take the methods defined in the module and make them available to instances of Robot and Human.
+Note that module methods may call methods of the class that they are mixed into. In this case, the Greetable module needs to access a name method. Both Robot and Human have name methods.
+The most famous module is Enumerable. All the various methods of Enumerable are defined in terms of an each method, which the class (be it Array, Hash, etc.) must define. I sometimes describe modules as "power packs", in that they extend the abilities of a class.
+Include vs extend
+It is common to mix in a module to add instance methods to a class; we've used include to do this. You can also use the Class#extend method to mix in module methods as class methods. Here's an example:
+module Findable
+  def objects
+    @objects ||= {}
+  end
+
+  def find(id)
+    objects[id]
+  end
+
+  def track(id, object)
+    objects[id] = object
+  end
+end
+
+class Cat
+  extend Findable
+  
+  def initialize(name)
+    @name = name
+    Cat.track(@name, self)
+  end
+end
+
+Cat.new("Gizmo")
+Cat.find("Gizmo") # finds Gizmo Cat object
+
+
+So here all the methods from the Findable module are implemented as class methods in the class Cat
+
+Ruby Library Management
+Many of our projects have been contained in a single file, but in real projects, programs are spread out across many files and folders.
+Ruby gives us three means by which to manage dependencies among those files:
+•	require
+•	require_relative
+•	load
+
+
+require, $LOAD_PATH and Gem.path
+Whenever you use a require statement, Ruby tries to find the specified file in its load path, which is a list of directories. Its specific purpose is to maintain the list of directories through which Ruby will search when a require or load statement is run by the interpreter.
+The load path typically includes the directories that contain the source files for Ruby's default library. You can access it through the global variable $LOAD_PATH.
+If something is not found in the $LOAD_PATH, then Ruby next tries to see if we are requiring a gem. To do this, it looks at Gem.path, which contains the directories in which Gems and their source code lives.
+The directory '.' (i.e. the current directory) is not part of the $LOAD_PATH. Funny enough, it used to be, but in Ruby 1.9.2, the current directory was removed from the load path for security reasons. Oh well.
+So, what can we do?
+We have three options:
+1.	Use an explicit path (like ./board),
+2.	Use require_relative,
+3.	Or add a folder to the load path with the -I flag
+
+Explicit paths
+Even if a file is not in a $LOAD_PATH directory, you can still load it if you give an explicit path to the file. This will direct Ruby not to look around in the $LOAD_PATH or Gem.path, but instead go directly to the file named.
+For instance, you can write require './board.rb', which will look for board.rb in the current directory (.).
+There is on problem: the current directory is the directory you are running ruby from. So if you run:
+ruby lib/game.rb
+require './board.rb' will look inside the current directory for board.rb; which is outside lib.
+For that reason, it is often wrong to require an explicit path like this. The typical solution is to use require_relative.
+
+

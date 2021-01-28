@@ -86,7 +86,6 @@ class KnightPathFinder
   end
 end
 # KnightPathFinder.valid_moves([2,0]) << 2
-p KnightPathFinder.valid_moves([2,0])
 
 if $PROGRAM_NAME == __FILE__
   kpf = KnightPathFinder.new([0, 0])
