@@ -3,8 +3,6 @@
 require 'rspec'
 require 'tic_tac_toe'
 require 'tic_tac_toe_node'
-# require 'ruby-debug'
-
 
 describe TicTacToeNode do
   let(:empty_board_node) do
@@ -114,9 +112,7 @@ describe TicTacToeNode do
 
     context "when it's the opponent's turn" do
       it 'detects when any child is a loser' do
-        
         expect(loser.losing_node?(:o)).to eq(false)
-        # debugger
         expect(opponent_winner.losing_node?(:x)).to eq(true)
       end
     end
@@ -140,7 +136,6 @@ describe TicTacToeNode do
     end
 
     it 'detects when the game is already won' do
-      # debugger
       expect(won_node.winning_node?(:o)).to eq(false)
       expect(won_node.winning_node?(:x)).to eq(true)
     end
@@ -153,7 +148,6 @@ describe TicTacToeNode do
 
     context "when it's the opponent's turn" do
       it 'detects when every child is a winner' do
-        # debugger
         expect(winner.winning_node?(:o)).to eq(false)
       end
     end
