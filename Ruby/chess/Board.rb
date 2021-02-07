@@ -1,15 +1,45 @@
-require_relative "Piece.rb"
 
+require_relative "Rook"
+require_relative "Knight"
+require_relative "Bishop"
+require_relative "Queen"
+require_relative "King"
+require_relative "Pawn"
+require_relative "NullPiece"
+
+# pieces need own pos = method to recognise themselves when their position has changed from board and update it. 
+# pawn need to only attack there if there is a piece
+# rewrite slideable module to be cleaner
+# rewrite Board.initialize method
 class Board
     attr_reader :rows
     def initialize
-        # initial_setup=[Piece.new(),]
+        #setup black pieces
         @rows = Array.new(8) {Array.new(8)}
-        (0..7).each do |i|
-            [0,1,6,7].each do |j|
-                @rows[i][j]=Piece.new
+        [0,7].each {|i| @rows[i][0]=Rook.new(:black,self,[i,0]) }
+        [1,6].each {|i| @rows[i][0]=Knight.new(:black,self,[i,0]) }
+        [2,5].each {|i| @rows[i][0]=Bishop.new(:black,self,[i,0]) }
+        @rows[3][0]=Queen.new(:black,self,[3,0])
+        @rows[4][0]=King.new(:black,self,[4,0])
+        (0..7).each {|i| @rows[i][1]=Pawn.new(:black,self,[i,1]) }
+        
+
+        #setup white pieces
+        [0,7].each  {|i| @rows[i][7]=Rook.new(:white,self,[i,7]) }
+        [1,6].each {|i| @rows[i][7]=Knight.new(:white,self,[i,7])}
+        [2,5].each {|i| @rows[i][7]=Bishop.new(:white,self,[i,7])}
+        @rows[3][7]=Queen.new(:white,self,[3,7])
+        @rows[4][7]=King.new(:white,self,[4,7])    
+        (0..7).each {|i| @rows[i][6]=Pawn.new(:white,self,[i,6]) }
+
+        #fill up rest of board with nulls
+        @rows.each.with_index do |row,i|
+            row.each.with_index do |ele,j|
+                @rows[i][j]= NullPiece.instance if !ele
             end
         end
+    
+
     end
     def move_piece!(start_pos,end_pos)
         if !self[start_pos]
@@ -35,6 +65,17 @@ class Board
     #     rows[x][y]==val
     # end
 end
-# board=Board.new()
+board=Board.new()
+# p board.rows
 # board[[0,0]]=Bishop.new(:black,board,[0,0])
 # p board.rows
+# p board[[1,0]].moves # check properly - remove negatives using super method valid_moves?
+# p board[[0,1]].moves # check properly - pawn method is wrong
+# p board[[1,1]].moves #weird bug for 1;1
+# p board[[7,1]].moves # nil class coming up!
+p board[[7,6]].moves #black not working
+# p board[[7,0]].moves 
+
+
+# bug for side attacks for side pawn only on right pawns (7,1 and 7,6)
+#bug for 1,1 moves

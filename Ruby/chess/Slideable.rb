@@ -21,31 +21,25 @@ module Slideable
             lateral_dir + diagonal_dir
         end
     end
-    # def lateral_dir
-    #     x,y=self.pos
-    #     positions=[]
-    #     ((0...x).to_a+(x..7).to_a).each {|horiz|positions << [horiz,y]}
-    #     ((0...y).to_a+(y..7).to_a).each {|vert|positions << [vert,x]}
-    #     positions
-    # end
-    def diag_or_lat(const_arr)
-            x,y=self.pos
+   
+    def diag_or_lat(dirs)
+            # x,y=self.pos
             positions=[]
-            const_arr.each do |(i,j)|
+            dirs.each do |(i,j)|
                 square=1
-                x_coord, y_coord==self.pos
-                while x_coord.between(0,7) || y_coord.between(0,7)
+                x_coord, y_coord=self.pos
+                while self.valid_moves.include?(x_coord) || self.valid_moves.include?(y_coord)
                     x_coord+=i
                     y_coord+=j
-                 if !self.board.rows[[x_coord,y_coord]].nil? 
-                    if 
-                        self.board.rows[[x_coord,y_coord]].color !=self.color
-                        positions << [x_coord,y_coord]
+                    break if !self.valid_moves.include?(x_coord) || !self.valid_moves.include?(y_coord)
 
-                    end
+                    # p self.board[[4,5]].nil?
+                    pos=[x_coord,y_coord]
+                 if !self.board[pos].empty? 
+                        positions << pos if self.board[pos].color !=self.color
                 break
                 end
-                    positions << [x_coord,y_coord]
+                    positions << pos
                 
                 square+=1
                 i*=square

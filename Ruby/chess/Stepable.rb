@@ -14,11 +14,47 @@ module Stepable
     #     ((0...y).to_a+(y..7).to_a).each {|vert|positions << [vert,x]}
     #     positions
     # end
-    def knight_move
-    
-    end
-    def king_move
+    def knight_or_king_move(move_arr)
+        
+            
+            x,y=self.pos
+            positions=[]
+            move_arr.each do |(a,b)|
+                x_coord, y_coord= x+a, y+b
+                next if !self.valid_moves.include?(x_coord) || !self.valid_moves.include?(y_coord)
 
+                positions << [x_coord,y_coord] unless self.board[[x_coord,y_coord]].color == self.color # error here
+            end
+        positions
+    end
+    def knight_move
+        knight_moves=[
+            [1,2],
+            [-1,2],
+            [-1,-2],
+            [1,-2],
+            [2,1],
+            [-2,1],
+            [-2,-1],
+            [2,-1]
+         ]
+         knight_or_king_move(knight_moves)
+    end
+        
+
+    def king_move
+        
+        king_moves=[
+            [-1,1],
+            [0,1],
+            [1,1],
+            [-1,0],
+            [1,0],
+            [-1,-1],
+            [0,-1],
+            [1,-1]
+        ]
+       knight_or_king_move(king_moves)
     end
   
 end

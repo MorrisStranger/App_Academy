@@ -1,13 +1,22 @@
 require_relative "Piece"
-
-class Rook < Piece
+require_relative "Slideable"
+# require_relative "Board"
+class Queen < Piece
 include Slideable
-    def intialize(color,board,pos)
+    def initialize(color,board,pos)
     super
 end
-
-
+def symbol
+    :Q
+    end
+    def moves_dir
+        # :Queen
+    end
 
 
 # end
 end
+
+# newboard=Board.new
+# newqueen=Queen.new(:black,newboard,[0,0])
+# p newqueen
