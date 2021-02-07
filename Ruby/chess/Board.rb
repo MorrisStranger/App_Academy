@@ -41,15 +41,16 @@ class Board
     
 
     end
-    def move_piece!(start_pos,end_pos)
-        if !self[start_pos]
-            raise "no piece at position #{start_pos}"
+    def move_piece(start_pos,end_pos)
+        raise "no piece at position #{start_pos}" if self[start_pos].empty?
+           
         # elsif piece cannot move to end_pos
         #     raise "piece cannot move to end_pos"
-        end
+        raise "cannot move there" if !self[start_pos].moves.include?(end_pos)
         piece=self[start_pos]
         self[end_pos]=piece
-        self[start_pos]=nil
+        piece.pos=end_pos
+        self[start_pos]=NullPiece.instance
     end
     def [](pos)
         x,y=pos
@@ -73,9 +74,12 @@ board=Board.new()
 # p board[[0,1]].moves # check properly - pawn method is wrong
 # p board[[1,1]].moves #weird bug for 1;1
 # p board[[7,1]].moves # nil class coming up!
-p board[[7,6]].moves #black not working
+p board[[7,6]] #black not working
 # p board[[7,0]].moves 
 
-
+board=Board.new()
+board.move_piece([1,0],[2,2])
+p board[[2,2]].moves
+p board[[1,0]]
 # bug for side attacks for side pawn only on right pawns (7,1 and 7,6)
 #bug for 1,1 moves
