@@ -85,6 +85,7 @@ class Cursor
       return self.cursor_pos
     when :ctrl_c
       Process.exit(0)
+    end
 
     # if key == :space
       # toggle_selected
@@ -92,8 +93,9 @@ class Cursor
 
   def update_pos(diff)
     #[1,0]
-    @cursor_pos=(0..cursor_pos.length).map {|coord| cursor_pos[coord]+diff[coord]}
+    new_pos = (0..cursor_pos.length).map {|coord| cursor_pos[coord]+diff[coord]}
+    @cursor_pos= new_pos if Board.valid_pos?(new_pos)
   end
-  def toggle_selected
-  end
+  # def toggle_selected
+  # end
 end

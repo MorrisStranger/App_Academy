@@ -1,6 +1,6 @@
 # require_relative "Bishop"
 class Piece
-  attr_accessor :pos, :board
+  attr_accessor :pos, :board # need at least a reader for color
   attr_reader :color
   def inspect
   { 'pos' => @pos, 'color' => @color,"symbol"=>self.Symbol }.inspect

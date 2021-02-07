@@ -14,7 +14,8 @@ require_relative "NullPiece"
 class Board
     attr_reader :rows
     def self.valid_pos?(pos)
-        pos.map
+        x, y = pos
+        x.between?(0,7) && y.between?(0,7)
     end
     def initialize
         #setup black pieces
@@ -80,14 +81,17 @@ board=Board.new()
 # p board[[7,6]] #black not working
 # p board[[7,0]].moves 
 
-board=Board.new()
-board.move_piece([1,0],[2,2])
-board.move_piece([3,6],[3,4])
-board.move_piece([2,2],[3,4])
-p board[[3,4]]
-p board[[1,0]]
-p board[[2,2]]
-p board[[3,6]]
+
+if __FILE__==$PROGRAM_NAME
+    board=Board.new()
+    board.move_piece([1,0],[2,2])
+    board.move_piece([3,6],[3,4])
+    board.move_piece([2,2],[3,4])
+    p board[[3,4]]
+    p board[[1,0]]
+    p board[[2,2]]
+    p board[[3,6]]
+end
 # p board[[2,2]].moves
 # p board[[1,0]]
 # bug for side attacks for side pawn only on right pawns (7,1 and 7,6)
