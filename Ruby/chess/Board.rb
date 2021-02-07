@@ -13,6 +13,9 @@ require_relative "NullPiece"
 # rewrite Board.initialize method
 class Board
     attr_reader :rows
+    def self.valid_pos?(pos)
+        pos.map
+    end
     def initialize
         #setup black pieces
         @rows = Array.new(8) {Array.new(8)}
@@ -74,12 +77,20 @@ board=Board.new()
 # p board[[0,1]].moves # check properly - pawn method is wrong
 # p board[[1,1]].moves #weird bug for 1;1
 # p board[[7,1]].moves # nil class coming up!
-p board[[7,6]] #black not working
+# p board[[7,6]] #black not working
 # p board[[7,0]].moves 
 
 board=Board.new()
 board.move_piece([1,0],[2,2])
-p board[[2,2]].moves
+board.move_piece([3,6],[3,4])
+board.move_piece([2,2],[3,4])
+p board[[3,4]]
 p board[[1,0]]
+p board[[2,2]]
+p board[[3,6]]
+# p board[[2,2]].moves
+# p board[[1,0]]
 # bug for side attacks for side pawn only on right pawns (7,1 and 7,6)
 #bug for 1,1 moves
+
+# test pawn capture, knight not able to take a pawn
