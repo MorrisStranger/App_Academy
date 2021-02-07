@@ -8,6 +8,7 @@ class Display
         @cursor = Cursor.new([0,0],board)
     end
     def render
+        p @board.rows
         @board.rows.each.with_index do |row,i|
             row.each.with_index do |square,j|
                 if @cursor_pos == [i,j]

@@ -20,21 +20,21 @@ class Board
     def initialize
         #setup black pieces
         @rows = Array.new(8) {Array.new(8)}
-        [0,7].each {|i| @rows[i][0]=Rook.new(:black,self,[i,0]) }
-        [1,6].each {|i| @rows[i][0]=Knight.new(:black,self,[i,0]) }
-        [2,5].each {|i| @rows[i][0]=Bishop.new(:black,self,[i,0]) }
-        @rows[3][0]=Queen.new(:black,self,[3,0])
-        @rows[4][0]=King.new(:black,self,[4,0])
-        (0..7).each {|i| @rows[i][1]=Pawn.new(:black,self,[i,1]) }
+        [0,7].each {|i| @rows[0][i]=Rook.new(:black,self,[0,i]) }
+        [1,6].each {|i| @rows[0][i]=Knight.new(:black,self,[0,i]) }
+        [2,5].each {|i| @rows[0][i]=Bishop.new(:black,self,[0,i]) }
+        @rows[0][3]=Queen.new(:black,self,[0,3])
+        @rows[0][4]=King.new(:black,self,[0,4])
+        (0..7).each {|i| @rows[1][i]=Pawn.new(:black,self,[1,i]) }
         
 
         #setup white pieces
-        [0,7].each  {|i| @rows[i][7]=Rook.new(:white,self,[i,7]) }
-        [1,6].each {|i| @rows[i][7]=Knight.new(:white,self,[i,7])}
-        [2,5].each {|i| @rows[i][7]=Bishop.new(:white,self,[i,7])}
-        @rows[3][7]=Queen.new(:white,self,[3,7])
-        @rows[4][7]=King.new(:white,self,[4,7])    
-        (0..7).each {|i| @rows[i][6]=Pawn.new(:white,self,[i,6]) }
+        [0,7].each  {|i| @rows[7][i]=Rook.new(:white,self,[7,i]) }
+        [1,6].each {|i| @rows[7][i]=Knight.new(:white,self,[7,i])}
+        [2,5].each {|i| @rows[7][i]=Bishop.new(:white,self,[7,i])}
+        @rows[7][3]=Queen.new(:white,self,[7,3])
+        @rows[7][4]=King.new(:white,self,[7,4])    
+        (0..7).each {|i| @rows[6][i]=Pawn.new(:white,self,[6,i]) }
 
         #fill up rest of board with nulls
         @rows.each.with_index do |row,i|
