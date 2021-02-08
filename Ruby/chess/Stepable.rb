@@ -1,3 +1,4 @@
+require "byebug"
 module Stepable
     def moves
         if self.moves_diff==:knight
@@ -21,7 +22,7 @@ module Stepable
             positions=[]
             move_arr.each do |(a,b)|
                 x_coord, y_coord= x+a, y+b
-                next if !self.valid_moves.include?(x_coord) || !self.valid_moves.include?(y_coord)
+                next if !self.validations_moves.include?(x_coord) || !self.validations_moves.include?(y_coord)
 
                 positions << [x_coord,y_coord] unless self.board[[x_coord,y_coord]].color == self.color # error here
             end

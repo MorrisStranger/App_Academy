@@ -1,3 +1,4 @@
+#could implement diag or lat as a procedure
 module Slideable
     DIAGONAL_DIRS=[
             [1,1],
@@ -28,10 +29,10 @@ module Slideable
             dirs.each do |(i,j)|
                 square=1
                 x_coord, y_coord=self.pos
-                while self.valid_moves.include?(x_coord) || self.valid_moves.include?(y_coord)
+                while self.validations_moves.include?(x_coord) || self.validations_moves.include?(y_coord)
                     x_coord+=i
                     y_coord+=j
-                    break if !self.valid_moves.include?(x_coord) || !self.valid_moves.include?(y_coord)
+                    break if !self.validations_moves.include?(x_coord) || !self.validations_moves.include?(y_coord)
 
                     # p self.board[[4,5]].nil?
                     pos=[x_coord,y_coord]

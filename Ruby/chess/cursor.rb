@@ -93,8 +93,12 @@ class Cursor
 
   def update_pos(diff)
     #[1,0]
-    new_pos = (0..cursor_pos.length).map {|coord| cursor_pos[coord]+diff[coord]}
-    @cursor_pos= new_pos if Board.valid_pos?(new_pos)
+    new_pos = (0...cursor_pos.length).map {|coord| cursor_pos[coord]+diff[coord]}
+
+    if Board.valid_pos?(new_pos)
+      @cursor_pos= new_pos 
+      system("clear")
+    end
   end
   # def toggle_selected
   # end

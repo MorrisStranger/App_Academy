@@ -7,11 +7,11 @@ class Pawn < Piece
 
     def at_start_row?
         if self.color==:black
-            return self.pos[1]==1
+            return self.pos[0]==1
             
         
         else
-            return self.pos[1]==6
+            return self.pos[0]==6
         end
     end
     def forward_steps
@@ -30,18 +30,18 @@ class Pawn < Piece
     end
     def side_attacks
         x,y=self.pos
-        #if white => +1,-1 and -1,-1
-        #if black => +1,+1 and -1,+1
+        #if white => left=-1,-1 and right=-1,+1
+        #if black => left=+1,-1 and right=+1,+1
         pieces_attacked=[]
-        first_pos = [x+forward_dir,y+forward_dir]
-        second_pos = [x-forward_dir,y+forward_dir]
+        left = [x+forward_dir,y-1]
+        right = [x+forward_dir,y+1]
         
-        if first_pos.all? {|coord| valid_moves.include?(coord)} && !self.board[first_pos].empty?
-        pieces_attacked << first_pos
+        if left.all? {|coord| validations_moves.include?(coord)} && !self.board[left].empty?
+        pieces_attacked << left
         end
 
-        if second_pos.all? {|coord| valid_moves.include?(coord)} && !self.board[second_pos].empty?
-            pieces_attacked << second_pos
+        if right.all? {|coord| validations_moves.include?(coord)} && !self.board[right].empty?
+            pieces_attacked << right
         end
         pieces_attacked
         
@@ -50,8 +50,11 @@ class Pawn < Piece
         x,y=pos
         moves=[]
         # debugger
-        (1..forward_steps).each {|step| moves << [x,y+self.forward_dir*step]}
+        #moves
+
+        (1..forward_steps).each {|step| moves << [x+self.forward_dir*step,y]}
+        moves.select { |(i,j)| i.between?(0,7) && j.between?(0,7) && self.board[[i,j]].empty? }
         moves+=side_attacks
-        moves.select { |(i,j)| i.between?(0,7) && j.between?(0,7) }
+        
     end
 end

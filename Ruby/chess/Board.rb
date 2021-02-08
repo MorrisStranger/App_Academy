@@ -6,17 +6,23 @@ require_relative "Queen"
 require_relative "King"
 require_relative "Pawn"
 require_relative "NullPiece"
+require "byebug"
 
-# pieces need own pos = method to recognise themselves when their position has changed from board and update it. 
-# pawn need to only attack there if there is a piece
 # rewrite slideable module to be cleaner
 # rewrite Board.initialize method
+#maybe eventually have a loop through all squares written as a proc
+#pieces method
+# checkmate_method after pieces method using new valid_moves method
+#refactor recursive method to run code after recursion instead of 2 functions
+# set pieces method to an instance variable to save time
+#make sure pawns dont overwrite pawns that are infront of it when it moves forward
 class Board
-    attr_reader :rows
+    attr_accessor :rows
     def self.valid_pos?(pos)
         x, y = pos
         x.between?(0,7) && y.between?(0,7)
     end
+    
     def initialize
         #setup black pieces
         @rows = Array.new(8) {Array.new(8)}
@@ -35,7 +41,7 @@ class Board
         @rows[7][3]=Queen.new(:white,self,[7,3])
         @rows[7][4]=King.new(:white,self,[7,4])    
         (0..7).each {|i| @rows[6][i]=Pawn.new(:white,self,[6,i]) }
-
+        # @loop_prc=
         #fill up rest of board with nulls
         @rows.each.with_index do |row,i|
             row.each.with_index do |ele,j|
@@ -44,6 +50,34 @@ class Board
         end
     
 
+    end
+    def pieces
+        pieces=[]
+        @rows.each do |row|
+            row.each do |piece|
+                pieces << piece
+            end
+        end
+        pieces
+    end
+    def dup(arr)#8 by 8, 8 by 0
+        # debugger
+        copy=[]
+        arr.each  do |ele| 
+            if  ele.is_a? Array
+                copy << self.dup(ele)
+            else 
+                copy << ele 
+
+            end
+        end
+        copy
+
+    end
+    def board_copy
+        newboard=self.class.new
+        newboard.rows=dup(@rows)
+        return newboard
     end
     def move_piece(start_pos,end_pos)
         raise "no piece at position #{start_pos}" if self[start_pos].empty?
@@ -64,13 +98,41 @@ class Board
         x,y=pos
         rows[x][y]=val
     end
-    #might delete
-    # def []==(pos,val)
-    #     x,y=pos
-    #     rows[x][y]==val
-    # end
+    def checkmate?(color)
+        color_pieces=pieces.select {|piece| piece.color==color}
+        self.in_check?(color) && color_pieces.all? {|piece|piece.valid_moves.empty?}
+        # in_check?(color) && pieces.none?valid_moves
+    end
+    
+
+    def in_check?(color)
+        king_pos=find_king?(color)
+        @rows.each do |row|
+            row.each do |piece|
+                return true if !piece.empty? && piece.color != color && piece.moves.include?(king_pos)
+            end
+        end
+        false
+
+        #select pieces where piece.color == black if white or white if blackself.color
+    end
+    def find_king?(color)
+        @rows.each.with_index do |row,i|
+            row.each.with_index do |ele,j|
+                # p @rows[i][j] is_a? King
+                piece=self[[i,j]]
+                # p piece.color==color
+                # p piece is_a? King
+                # p piece.is_a? King
+                if (piece.is_a? King) && piece.color==color
+                    return [i,j] 
+                end
+            end
+        end
+    end
+    
 end
-board=Board.new()
+# board=Board.new()
 # p board.rows
 # board[[0,0]]=Bishop.new(:black,board,[0,0])
 # p board.rows
@@ -82,19 +144,30 @@ board=Board.new()
 # p board[[7,0]].moves 
 
 
+# if __FILE__==$PROGRAM_NAME
+#     board=Board.new()
+#     board.move_piece([1,0],[2,2])
+#     board.move_piece([3,6],[3,4])
+#     board.move_piece([2,2],[3,4])
+#     p board[[3,4]]
+#     p board[[1,0]]
+#     p board[[2,2]]
+#     p board[[3,6]]
+# end
+
 if __FILE__==$PROGRAM_NAME
-    board=Board.new()
-    board.move_piece([1,0],[2,2])
-    board.move_piece([3,6],[3,4])
-    board.move_piece([2,2],[3,4])
-    p board[[3,4]]
-    p board[[1,0]]
-    p board[[2,2]]
-    p board[[3,6]]
+    newboard=Board.new
+    newboard.move_piece([6,5],[5,5])
+    p newboard
+    newboard.move_piece([1,4],[2,4])
+    p newboard
 end
+
+# p deep_board.rows
 # p board[[2,2]].moves
 # p board[[1,0]]
 # bug for side attacks for side pawn only on right pawns (7,1 and 7,6)
 #bug for 1,1 moves
 
 # test pawn capture, knight not able to take a pawn
+
