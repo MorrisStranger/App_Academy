@@ -33,6 +33,13 @@ class Piece
     #piece should have a method that says whether it has any valid_moves or not
     self.moves.reject do |move|
       dup_board=board.board_copy
+      # p dup_board.rows.length
+      p self
+      p self.moves
+      # p self
+      # p self.moves
+      # p move
+      # p dup_board.pieces
       dup_board.move_piece(self.pos,move)
       dup_board.in_check?(self.color)
     end

@@ -10,7 +10,7 @@ def symbol
     :Q
     end
     def moves_dir
-        # :Queen
+        :both
     end
 
 

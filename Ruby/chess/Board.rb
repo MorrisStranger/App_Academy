@@ -106,11 +106,15 @@ class Board
     
 
     def in_check?(color)
+        # debugger
         king_pos=find_king?(color)
         @rows.each do |row|
             row.each do |piece|
+            
                 return true if !piece.empty? && piece.color != color && piece.moves.include?(king_pos)
+
             end
+
         end
         false
 

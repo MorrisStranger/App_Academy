@@ -45,13 +45,14 @@ if __FILE__==$PROGRAM_NAME
     newboard.move_piece([6,6],[4,6])
     display.render
     p display.board.checkmate?(:white)
-    p newboard[[1,1]].moves# something wrong with slideable class atleast for bishop and queen
-    # newboard.move_piece([0,3],[4,7])
+    # p newboard[[1,1]].moves# something wrong with slideable class atleast for bishop and queen
+    newboard.move_piece([0,3],[4,7])
+    # p newboard[[0,3]].moves
     display.render
     p display.board.checkmate?(:white)
-    newboard.move_piece([1,0],[3,0])
-    display.render
-    p newboard[[0,0]].moves
+    # newboard.move_piece([1,0],[3,0])
+    # display.render
+    # p newboard[[0,0]].moves
 
     # newboard.move_piece([1,4],[2,4])
     # display.render
