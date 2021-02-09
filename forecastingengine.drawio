@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-09T15:12:48.919Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146 Safari/537.36" etag="OElUNVzkPA7NunY9C0ad" version="14.3.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-09T15:15:58.746Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146 Safari/537.36" etag="h48DGuDA5kwR83mbZgIi" version="14.3.0" type="github">
   <diagram id="a-bHq1KkwQbsTztBTE07" name="Page-1">
     <mxGraphModel dx="868" dy="488" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -11,19 +11,16 @@
           <mxGeometry x="51" y="60" width="159" height="100" as="geometry" />
         </mxCell>
         <mxCell id="Kt-GRtBH2peXFJSDINZT-8" value="marketpricefcast" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="700" y="40.00000000000001" width="120" height="60" as="geometry" />
+          <mxGeometry x="700" y="40" width="150" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Kt-GRtBH2peXFJSDINZT-9" value="cforecast" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="700" y="160" width="120" height="60" as="geometry" />
+          <mxGeometry x="700" y="160" width="150" height="90" as="geometry" />
         </mxCell>
         <mxCell id="QDE64ggSZwjZivFJymg_-15" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="240" y="60" width="410" height="490" as="geometry" />
         </mxCell>
         <mxCell id="Kt-GRtBH2peXFJSDINZT-1" value="" style="rounded=1;whiteSpace=wrap;html=1;direction=south;" parent="QDE64ggSZwjZivFJymg_-15" vertex="1">
           <mxGeometry width="410" height="489.99999999999994" as="geometry" />
-        </mxCell>
-        <mxCell id="QDE64ggSZwjZivFJymg_-14" value="&lt;font style=&quot;font-size: 14px&quot;&gt;PRICE&lt;/font&gt;" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="QDE64ggSZwjZivFJymg_-15">
-          <mxGeometry x="199.60526315789474" y="65.32812560386473" width="60" height="20" as="geometry" />
         </mxCell>
         <mxCell id="QDE64ggSZwjZivFJymg_-25" value="&lt;font style=&quot;font-size: 24px&quot;&gt;Forecasting Engine&lt;/font&gt;" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="QDE64ggSZwjZivFJymg_-15">
           <mxGeometry x="88.47578947368422" y="99.99888888888887" width="220" height="20" as="geometry" />
@@ -58,9 +55,12 @@
             <mxPoint x="190" y="200" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="QDE64ggSZwjZivFJymg_-17" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="QDE64ggSZwjZivFJymg_-14" target="Kt-GRtBH2peXFJSDINZT-8">
+        <mxCell id="QDE64ggSZwjZivFJymg_-37" value="Price" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="QDE64ggSZwjZivFJymg_-15">
+          <mxGeometry x="146.08" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="QDE64ggSZwjZivFJymg_-17" value="" style="endArrow=classic;html=1;" edge="1" parent="1" target="Kt-GRtBH2peXFJSDINZT-8">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="480" y="310" as="sourcePoint" />
+            <mxPoint x="510" y="129" as="sourcePoint" />
             <mxPoint x="530" y="260" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -76,10 +76,10 @@
             <mxPoint x="520" y="70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="QDE64ggSZwjZivFJymg_-28" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kt-GRtBH2peXFJSDINZT-6" target="QDE64ggSZwjZivFJymg_-14">
+        <mxCell id="QDE64ggSZwjZivFJymg_-28" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.008;entryY=0.65;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Kt-GRtBH2peXFJSDINZT-6" target="QDE64ggSZwjZivFJymg_-37">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="350" y="270" as="sourcePoint" />
-            <mxPoint x="400" y="220" as="targetPoint" />
+            <mxPoint x="408.4752631578947" y="135.2850409916407" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
