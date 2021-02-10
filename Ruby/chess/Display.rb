@@ -38,10 +38,14 @@ if __FILE__==$PROGRAM_NAME
     newboard.move_piece([6,5],[5,5])
 
     display.render
+    p display.board.checkmate?(:white)
+
     newboard.move_piece([1,4],[2,4])
 
     # p newboard[[6,1]].moves # problem with pawn method
     display.render
+    p display.board.checkmate?(:white)
+
     newboard.move_piece([6,6],[4,6])
     display.render
     p display.board.checkmate?(:white)
@@ -49,7 +53,11 @@ if __FILE__==$PROGRAM_NAME
     newboard.move_piece([0,3],[4,7])
     # p newboard[[0,3]].moves
     display.render
+    p "final"
     p display.board.checkmate?(:white)
+    display.render
+    newboard.move_piece([6,0],[4,0])
+    display.render
     # newboard.move_piece([1,0],[3,0])
     # display.render
     # p newboard[[0,0]].moves

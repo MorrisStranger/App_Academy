@@ -1,4 +1,5 @@
 # require_relative "Bishop"
+require "byebug"
 class Piece
   attr_accessor :pos, :board # need at least a reader for color
   attr_reader :color  #need at least a reader for board
@@ -30,19 +31,38 @@ class Piece
   # color==:black ? :white : :black
   # end
   def valid_moves
+    #
     #piece should have a method that says whether it has any valid_moves or not
-    self.moves.reject do |move|
+    valid_moves=self.moves.reject do |move|
       dup_board=board.board_copy
+      # p "here is the dup board: #{dup_board.rows}"
+      # debugger
+      
       # p dup_board.rows.length
-      p self
-      p self.moves
+      # p self
+      # p board[self.pos]
+
+      # p "piece position: #{self.pos}"
+      # p " dup_board piece original position: #{dup_board[self.pos]}"
+      # p " original board piece original position: #{board[self.pos]}"
+      
+      # p board[[4,6]]
+      # p dup_board[[4,6]]
+      # p self.moves
       # p self
       # p self.moves
       # p move
       # p dup_board.pieces
+      
       dup_board.move_piece(self.pos,move)
+
+      # p dup_board[move]
       dup_board.in_check?(self.color)
+      # dup_board=board.board_copy
+
     end
+    # p valid_moves
+    valid_moves
   end
       # board.pieces.each do |piece|
       #   pos_moves=piece.moves

@@ -36,11 +36,11 @@ class Pawn < Piece
         left = [x+forward_dir,y-1]
         right = [x+forward_dir,y+1]
         
-        if left.all? {|coord| validations_moves.include?(coord)} && !self.board[left].empty?
+        if left.all? {|coord| validations_moves.include?(coord)} && !self.board[left].empty? && self.board[left].color!=self.color
         pieces_attacked << left
         end
 
-        if right.all? {|coord| validations_moves.include?(coord)} && !self.board[right].empty?
+        if right.all? {|coord| validations_moves.include?(coord)} && !self.board[right].empty? && self.board[right].color!=self.color
             pieces_attacked << right
         end
         pieces_attacked
@@ -53,7 +53,7 @@ class Pawn < Piece
         #moves
 
         (1..forward_steps).each {|step| moves << [x+self.forward_dir*step,y]}
-        moves.select { |(i,j)| i.between?(0,7) && j.between?(0,7) && self.board[[i,j]].empty? }
+        moves=moves.select { |(i,j)| i.between?(0,7) && j.between?(0,7) && self.board[[i,j]].empty? }
         moves+=side_attacks
         
     end

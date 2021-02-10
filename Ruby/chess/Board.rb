@@ -65,10 +65,11 @@ class Board
         copy=[]
         arr.each  do |ele| 
             if  ele.is_a? Array
-                copy << self.dup(ele)
-            else 
-                copy << ele 
-
+                copy << self.dup(ele.dup)
+            elsif !ele.is_a? NullPiece
+                copy << ele.dup
+            else
+                copy << ele
             end
         end
         copy
@@ -100,7 +101,16 @@ class Board
     end
     def checkmate?(color)
         color_pieces=pieces.select {|piece| piece.color==color}
-        self.in_check?(color) && color_pieces.all? {|piece|piece.valid_moves.empty?}
+        # p color_pieces
+        # p color_pieces.length
+        # p self.in_check?(color)
+        self.in_check?(color) && color_pieces.all? {|piece|
+        
+       
+        # p piece.valid_moves.empty?
+        # p piece
+        # p self[[6,7]].valid_moves
+        piece.valid_moves.empty?}
         # in_check?(color) && pieces.none?valid_moves
     end
     
@@ -108,6 +118,7 @@ class Board
     def in_check?(color)
         # debugger
         king_pos=find_king?(color)
+        # p king_pos
         @rows.each do |row|
             row.each do |piece|
             
