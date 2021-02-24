@@ -16,6 +16,13 @@ class Deck
         @deck = deck_maker()
         
     end
+    def deal_card()
+
+        deck.delete(deck.sample(1)[0])
+        # player1.hand << delt_card
+        # delt_card
+    end
+    private
     def deck_maker
         deck=[]
         Card.suits.keys.each do |suit|
