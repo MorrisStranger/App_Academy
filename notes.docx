@@ -1,10 +1,22 @@
+revise reference for arrays in ruby visualisation
+lookup fixnum type in ruby
+lookup amoritzed time complexity
+know how memory works in ruby and go back over benchmarks understading all space and time complexity.
+learn about ruby procs and &:
+difference between permutations and combinations and understanding formula for combinations and why permutations is n!
+Make sure begin, rescue etc. are covered properly
+Take more thorough rspec notes
+https://github.com/rspec/rspec-core
+https://github.com/rspec/rspec-mocks
+https://www.betterspecs.org/
+Read previous assessment specs – polytreenode, etc.
+https://www.betterspecs.org/
 understand differences between public,private and protected
-
-add cursor input to minesweeper
+review treetraversal/tic_tac_toe solution and min max in solution
+Add cursor input to minesweeper
 Lookup difference between abstraction and encapsulation
 Lookup inheritance use cases
 review destructiong link at bootom of method decompoisition and design in ruby section
-review making deep_dup method for ruby since doesn’t work with arrays
 review mixin in polytreenode class solution 
 watch lecture at the end of code smells section
 come back to do AI player
@@ -1677,7 +1689,11 @@ Ruby is Dynamic, reflective, multi-paradigm.
 
 in Ruby variables/methods start with lower case letters, and classes start with upper case letters.
 
+pry:
 
+can do show-doc String.end_with?
+show-source String#end_with? shows the C code behind end_with? method
+to learn how a method is used.
 [2] pry(main)> require 'primes.rb'
 LoadError: cannot load such file -- primes.rb
 There are two very common causes. Sometimes you are trying to load a file that is provided by a gem, but you haven't installed the gem yet.
@@ -1839,22 +1855,22 @@ You can see one somewhat funny side-effect when we look up "Devon"; even when we
 
 SCOPE
 
-When we open up a block, variables declared within the block will not be accessible once we exit the block. However, if we have declared a variable before we enter the block, we will have access to that variable inside the block. In fact, any changes made to that variable within the block will persist once we've exited the block. Let's see a few examples:
+When we open up a block, variables declared within the block will not be accessible once we exit the block. However, if we have declared a variable before we enter the block, we will have access to that variable inside the block. In fact, any changes made to that variable within the block will persist once we've exited the block. Let's see a few examples:​
 
 3.times do
   x = 4
 end
-
+​
 puts x # Error - undefined local variable `x`
 the rule here is as follows: Local variables declared in outer scopes are available, and may be modified, in all inner scopes. Local variables declared in inner scopes are not available in outer scopes.
 
 
-Keep in mind that if/while statements are different than blocks in Ruby, and these rules do not apply. Even though our code inside if/while statements is nested, this code is still treated as part of the outer scope. For example, we can do something like this:
+Keep in mind that if/while statements are different than blocks in Ruby, and these rules do not apply. Even though our code inside if/while statements is nested, this code is still treated as part of the outer scope. For example, we can do something like this:​
 
 if true
   i = 2
 end
-
+​
 puts i # outputs 2
 
 
@@ -1863,11 +1879,11 @@ puts i # outputs 2
 
 
 x = 2
-
+​
 def display_x
   puts x
 end
-
+​
 display_x # Error - undefined local variable `x`
 
 Based on what we've discussed so far, you may be wondering how we can call methods within other methods, given that every method opens up its own scope gate. The answer is that methods behave differently than local variables. Methods defined in the top level scope are accessible within other methods also defined in the top level scope. The short of it is that these methods actually get defined on an object called main and you are able to call them for the same reason you can call instance methods from other instance methods in a class.
@@ -1875,16 +1891,16 @@ Based on what we've discussed so far, you may be wondering how we can call metho
 def fourth_power(i)
   square(i) * square(i)
 end
-
+​
 def square(i)
   i * i
 end
-
+​
 fourth_power(2) # outputs 16 (2^4)
 
-The above code is able to run without error. It's also worth noting that square is used in fourth_power despite being defined below it. Since we don't call fourth_power until the very last line, we have access to both methods.
+The above code is able to run without error. It's also worth noting that square is used in fourth_power despite being defined below it. Since we don't call fourth_power until the very last line, we have access to both methods.​
 vscode-remote://wsl%2Bubuntu-18.04/home/morris/appAcademyProjects/Ruby/sudoku/puzzles/Board.rb
-While you shouldn't typically create global variables, you can do so with the $ prefix. Once a global variable has been declared, it is available in every scope in your program. Unless you absolutely have to (and you probably don't) you should avoid creating global variables as they are dangerous, and often unnecessary.
+While you shouldn't typically create global variables, you can do so with the $ prefix. Once a global variable has been declared, it is available in every scope in your program. Unless you absolutely have to (and you probably don't) you should avoid creating global variables as they are dangerous, and often unnecessary.​
 
 Recursion
 quicksort is easiest to write recursively but any recursive algorithm can be written iteratively however it is much more difficult to for quicksort
@@ -2273,9 +2289,9 @@ For DFS, we will look at a node, and then look at it's first child, and then tha
 
 PUTTING A FUNCTION IN AN IF STATEMENT CONDITION EVALUATES THE FUNCTION
 Recursive deep_dup method
-  def deep_dup(arr)
-    arr.map { |el| el.is_a?(Array) ? deep_dup(el) : el }
-  end  
+  def deep_dup(arr)
+    arr.map { |el| el.is_a?(Array) ? deep_dup(el) : el }
+  end  
 
 
 
@@ -2319,7 +2335,7 @@ class SuperUser < User
     puts "Goodbye, #{user.full_name}!"
   end
 end
-Here we use < to denote that the SuperUser class inherits from the User class. That means that the SuperUser class gets all of the methods of the User class. We say that User is the parent class or superclass, and that SuperUser is the child class or subclass. So we can write code like so:
+Here we use < to denote that the SuperUser class inherits from the User class. That means that the SuperUser class gets all of the methods of the User class. We say that User is the parent class or superclass, and that SuperUser is the child class or subclass. So we can write code like so:
 [13] pry(main)> load 'test.rb'
 => true
 [14] pry(main)> u = User.new("Jamis", "Buck")
@@ -2357,7 +2373,7 @@ end
 
 
 Calling a super method
-When overriding a method, it is common to call the original implementation. We can call the superclass's implementation of any method using the special super keyword. There are two major ways in which super is called. If super is called without any arguments, the arguments passed to the method will be implicitly passed on to the parent class's implementation.
+When overriding a method, it is common to call the original implementation. We can call the superclass's implementation of any method using the special super keyword. There are two major ways in which super is called. If super is called without any arguments, the arguments passed to the method will be implicitly passed on to the parent class's implementation.
 class Animal
   def make_n_noises(n = 2)
     n.times { print "Growl " }
@@ -2386,7 +2402,7 @@ def sqrt(num)
 
   # code to calculate square root...
 end
-Since we can't take the square root of a negative number, we raise an exception instead of returning an answer. When an exception is raised, the method stops executing. Instead of returning, an exception is thrown. The method's caller then gets a chance to handle the exception:
+Since we can't take the square root of a negative number, we raise an exception instead of returning an answer. When an exception is raised, the method stops executing. Instead of returning, an exception is thrown. The method's caller then gets a chance to handle the exception:
 def main
   # run the main program in a loop
   while true
@@ -2402,11 +2418,11 @@ def main
     end
   end
 end
-If the user feeds in a negative number, sqrt will raise an exception. Because main has wrapped this code in a begin/rescue/end block, the exception will be caught. The code will jump to the rescue block that anticipates an ArgumentError. It will save the exception in the variable e, then run the error handling code.
-If the calling method doesn't rescue (we also say catch or handle) an exception, it continues to bubble up the call stack. So the caller's caller gets a chance, then their caller, then...
+If the user feeds in a negative number, sqrt will raise an exception. Because main has wrapped this code in a begin/rescue/end block, the exception will be caught. The code will jump to the rescue block that anticipates an ArgumentError. It will save the exception in the variable e, then run the error handling code.
+If the calling method doesn't rescue (we also say catch or handle) an exception, it continues to bubble up the call stack. So the caller's caller gets a chance, then their caller, then...
 If no method throughout the entire call stack catches the exception, the exception is printed to the user and the program exits.
 Ensure
-Sometimes there is important code that must be executed whether an exception is raised or otherwise. In this case, we can use ensure.
+Sometimes there is important code that must be executed whether an exception is raised or otherwise. In this case, we can use ensure.
 begin
   a_dangerous_operation
 rescue StandardError => e
@@ -2446,18 +2462,18 @@ def echo_name
     retry
   end
 end
-The retry keyword will cause Ruby to repeat the begin block from the beginning. It is useful for "looping" until an operation completes successfuly.
+The retry keyword will cause Ruby to repeat the begin block from the beginning. It is useful for "looping" until an operation completes successfuly.
 
 Note: the code will not hit the ensure block if it is retried. It will only do so if it errors and exits then it will run the ensure block	
 
 Implicit Begin Blocks
-Method and class definitions are implicitly wrapped in a begin/end block, so if your error handling applies to the whole method, all you have to add is rescue.
+Method and class definitions are implicitly wrapped in a begin/end block, so if your error handling applies to the whole method, all you have to add is rescue.
 def slope(pos1, pos2)
   (pos2.y - pos1.y) / (pos2.x - pos1.x)
 rescue ZeroDivisionError
   nil
 end
-The method from the retry example could also be written this way.
+The method from the retry example could also be written this way.
 def echo_name
   fname, lname = prompt_name
 
@@ -2469,10 +2485,10 @@ end
 
 
 Exception Hierarchy
-There are a number of predefined exception classes in Ruby. You can find them here. You should try to choose an appropriate class. One of the more common exceptions to use is ArgumentError, which signals that an argument passed to a method is invalid. RuntimeError is used for generic errors; this is probably your other goto.
+There are a number of predefined exception classes in Ruby. You can find them here. You should try to choose an appropriate class. One of the more common exceptions to use is ArgumentError, which signals that an argument passed to a method is invalid. RuntimeError is used for generic errors; this is probably your other goto.
 When creating an exception, you can add an error message so the user knows what went wrong:
 raise RuntimeError.new("Didn't try hard enough")
-If you want your user to be able to distinguish different failure types (perhaps to handle them differently), you can extend StandardError and write your own:
+If you want your user to be able to distinguish different failure types (perhaps to handle them differently), you can extend StandardError and write your own:
 class EngineStalledError < StandardError
 end
 
@@ -2494,19 +2510,19 @@ ensure
 end
 
 object decomposition
- Stored information like a Minnow's position is called the state of an object. Minnows and Sharks have their own way of doing things (they both #swim differently); this is called behavior.
+ Stored information like a Minnow's position is called the state of an object. Minnows and Sharks have their own way of doing things (they both #swim differently); this is called behavior.
 Object oriented design is about breaking a complex problem down into classes, each of which is responsible for its own state and behavior.
-why is Shark and Minnow the right level of granularity, and not an Aquarium class that is responsible for modeling both sharks and fishes?
-Each class should do one thing. An Aquarium tries to do two things: model fish and model sharks.
+why is Shark and Minnow the right level of granularity, and not an Aquarium class that is responsible for modeling both sharks and fishes?
+Each class should do one thing. An Aquarium tries to do two things: model fish and model sharks.
 How do we decide what a single responsibility is? The best way to think about it is this: you should define classes at the level of abstraction that you want to make changes at. You might want to make changes to the minnows, but not the sharks, so they should be separate classes.
 
 
-why is Shark and Minnow the right level of granularity, and not an Aquarium class that is responsible for modeling both sharks and fishes?
-Each class should do one thing. An Aquarium tries to do two things: model fish and model sharks.
+why is Shark and Minnow the right level of granularity, and not an Aquarium class that is responsible for modeling both sharks and fishes?
+Each class should do one thing. An Aquarium tries to do two things: model fish and model sharks.
 How do we decide what a single responsibility is? The best way to think about it is this: you should define classes at the level of abstraction that you want to make changes at. You might want to make changes to the minnows, but not the sharks, so they should be separate classes.
 A good guideline to follow is not to introduce a new subclass until:
-•	You are facing two different subclasses of the base class, AND
-•	The two subclasses have substantially different behavior.
+⦁	You are facing two different subclasses of the base class, AND
+⦁	The two subclasses have substantially different behavior.
 In short, don't use inheritance until it serves a purpose like keeping your code DRY or helping code organization. Needlessly complicated inheritance hierarchies are a common mistake of novice programmers.
 class Airplane
   def fly
@@ -2519,9 +2535,9 @@ class Airplane
     ...
   end
 end
-All methods after the private keyword are private to the class.
-What kind of methods should be private? Ones which users of the class should not call, either for safety reasons (user doesn't know when they should start_engine) or because they're low-level details that don't concern them (user just wants to fly, doesn't want to know how that happens).
-Instance variables are always "private" in the sense that they are not even methods. You can expose instance variables to the outside world by making public getter/setter methods using attr_accessor and the like.
+All methods after the private keyword are private to the class.
+What kind of methods should be private? Ones which users of the class should not call, either for safety reasons (user doesn't know when they should start_engine) or because they're low-level details that don't concern them (user just wants to fly, doesn't want to know how that happens).
+Instance variables are always "private" in the sense that they are not even methods. You can expose instance variables to the outside world by making public getter/setter methods using attr_accessor and the like.
 
 
 We mentioned safety and a simple interface as reasons that you might want to create private methods. Also, you want to make it easy to change and extend your code. The more you expose to users of the class (whether people or other code), the more they will rely on those details. Whatever you expose will be that much harder to change later after others depend on it.
@@ -2534,14 +2550,14 @@ That said, if you miss a method that should be private but is instead public, it
 
 Unified Modeling Language
 Unified Modeling Language (UML) is a visual way of describing the relationships between different objects in a system. UML can describe classes (e.g., the structure of an object-oriented software program) or behavior (e.g., diagramming a set of concurrent processes). We will be using UML to model the class structure of our chess game.
-In UML, classes can be related to each other in several different ways, including parent-child and association (a "has a" relationship). Piece is the parent of Pawn, for example, while Game is associated with Board because Game has a (i.e. requires) Board.
+In UML, classes can be related to each other in several different ways, including parent-child and association (a "has a" relationship). Piece is the parent of Pawn, for example, while Game is associated with Board because Game has a (i.e. requires) Board.
 A class is usually drawn in UML with three components: a name, a set of attributes (instance variables), and a set of methods. The attributes and methods are marked as being public (+), private(-), or protected (#), and class methods are underlined.
- 
+Image
 
 Modules and Mixins
 
 Modules
-A Ruby module is like a class, except you don't instantiate a module. Modules consist of methods that can be mixed in to a Ruby class. In Ruby, we use a module to collect methods that may be mixed in and shared by many classes to keep our code DRY.
+A Ruby module is like a class, except you don't instantiate a module. Modules consist of methods that can be mixed in to a Ruby class. In Ruby, we use a module to collect methods that may be mixed in and shared by many classes to keep our code DRY.
 Let's see an example:
 module Greetable
   def greet
@@ -2568,11 +2584,11 @@ class Robot
     "Robot Model #2000"
   end
 end
-We "mix in" a module by using the #include method. This will take the methods defined in the module and make them available to instances of Robot and Human.
-Note that module methods may call methods of the class that they are mixed into. In this case, the Greetable module needs to access a name method. Both Robot and Human have name methods.
-The most famous module is Enumerable. All the various methods of Enumerable are defined in terms of an each method, which the class (be it Array, Hash, etc.) must define. I sometimes describe modules as "power packs", in that they extend the abilities of a class.
+We "mix in" a module by using the #include method. This will take the methods defined in the module and make them available to instances of Robot and Human.
+Note that module methods may call methods of the class that they are mixed into. In this case, the Greetable module needs to access a name method. Both Robot and Human have name methods.
+The most famous module is Enumerable. All the various methods of Enumerable are defined in terms of an each method, which the class (be it Array, Hash, etc.) must define. I sometimes describe modules as "power packs", in that they extend the abilities of a class.
 Include vs extend
-It is common to mix in a module to add instance methods to a class; we've used include to do this. You can also use the Class#extend method to mix in module methods as class methods. Here's an example:
+It is common to mix in a module to add instance methods to a class; we've used include to do this. You can also use the Class#extend method to mix in module methods as class methods. Here's an example:
 module Findable
   def objects
     @objects ||= {}
@@ -2605,28 +2621,464 @@ So here all the methods from the Findable module are implemented as class method
 Ruby Library Management
 Many of our projects have been contained in a single file, but in real projects, programs are spread out across many files and folders.
 Ruby gives us three means by which to manage dependencies among those files:
-•	require
-•	require_relative
-•	load
+⦁	require
+⦁	require_relative
+⦁	load
 
 
-require, $LOAD_PATH and Gem.path
-Whenever you use a require statement, Ruby tries to find the specified file in its load path, which is a list of directories. Its specific purpose is to maintain the list of directories through which Ruby will search when a require or load statement is run by the interpreter.
-The load path typically includes the directories that contain the source files for Ruby's default library. You can access it through the global variable $LOAD_PATH.
-If something is not found in the $LOAD_PATH, then Ruby next tries to see if we are requiring a gem. To do this, it looks at Gem.path, which contains the directories in which Gems and their source code lives.
-The directory '.' (i.e. the current directory) is not part of the $LOAD_PATH. Funny enough, it used to be, but in Ruby 1.9.2, the current directory was removed from the load path for security reasons. Oh well.
+require, $LOAD_PATH and Gem.path
+Whenever you use a require statement, Ruby tries to find the specified file in its load path, which is a list of directories. Its specific purpose is to maintain the list of directories through which Ruby will search when a require or load statement is run by the interpreter.
+The load path typically includes the directories that contain the source files for Ruby's default library. You can access it through the global variable $LOAD_PATH.
+If something is not found in the $LOAD_PATH, then Ruby next tries to see if we are requiring a gem. To do this, it looks at Gem.path, which contains the directories in which Gems and their source code lives.
+The directory '.' (i.e. the current directory) is not part of the $LOAD_PATH. Funny enough, it used to be, but in Ruby 1.9.2, the current directory was removed from the load path for security reasons. Oh well.
 So, what can we do?
 We have three options:
-1.	Use an explicit path (like ./board),
-2.	Use require_relative,
-3.	Or add a folder to the load path with the -I flag
+1.	Use an explicit path (like ./board),
+2.	Use require_relative,
+3.	Or add a folder to the load path with the -I flag
 
 Explicit paths
-Even if a file is not in a $LOAD_PATH directory, you can still load it if you give an explicit path to the file. This will direct Ruby not to look around in the $LOAD_PATH or Gem.path, but instead go directly to the file named.
-For instance, you can write require './board.rb', which will look for board.rb in the current directory (.).
-There is on problem: the current directory is the directory you are running ruby from. So if you run:
+Even if a file is not in a $LOAD_PATH directory, you can still load it if you give an explicit path to the file. This will direct Ruby not to look around in the $LOAD_PATH or Gem.path, but instead go directly to the file named.
+For instance, you can write require './board.rb', which will look for board.rb in the current directory (.).
+There is on problem: the current directory is the directory you are running ruby from. So if you run:
 ruby lib/game.rb
-require './board.rb' will look inside the current directory for board.rb; which is outside lib.
-For that reason, it is often wrong to require an explicit path like this. The typical solution is to use require_relative.
+require './board.rb' will look inside the current directory for board.rb; which is outside lib.
+For that reason, it is often wrong to require an explicit path like this. The typical solution is to use require_relative.
 
 
+RSPEC
+
+RSpec is a great example of a DSL, or domain specific language. A DSL is a language which is dedicated to a particular problem domain. So, RSpec is a language (or in this case, just a superset of Ruby) which allows for clearer expression in the testing domain.
+By convention, tests are kept in the spec folder and your application code will be kept in a lib folder. Tests for hello.rb will be written in a file called hello_spec.rb. Your directory structure should look like this:
+my_cool_project
+  lib/
+    hello.rb
+  spec/
+    hello_spec.rb
+Each spec will usually be limited to testing a single file and so will require the file at the top of the spec. It will also have to require the rspec gem.
+# hello_spec.rb
+
+require 'rspec'
+require 'hello'
+
+describe '#hello_world' do
+
+end
+Note that RSpec will by default include the lib/ folder in the require path so that we can use require and not require_relative. This is another reason to follow the convention of using lib/ and spec/ for your code and your tests, respectively.
+describe and it
+it is RSpec's most basic test unit. All of your actual individual tests will go inside of an it block.
+describe is RSpec's unit of organization. It gathers together several it blocks into a single unit, and, as we'll see, allows you to set up some context for blocks of tests.
+Both describe and it take strings as arguments. For describe, use the name of the method you're testing (use "#method" for instance methods, and "::method" for class methods). For it, you should describe the behavior that you're testing inside that it block.
+describe can also take a constant that should be the name of the class or module you're testing (i.e. describe Student do).
+You can nest describe blocks arbitrarily deep. When nesting, also consider the use of context, which is an alias for describe that can be a bit more descriptive. Prefer context when it makes sense.
+describe Student do
+  context 'when a current student' do
+    ...
+  end
+
+  context 'when graduated' do
+    ...
+  end
+end
+expect
+describe and it organize your tests and give them descriptive labels. expect will actually be doing the work of testing your code.
+Its task is to match between a value your code generates and an expected value. You can specify the way in which it will match.
+There are negative and positive constructions:
+expect(test_value).to ...
+expect(test_value).to_not ...
+There are two constructions to expect: with an argument and with a block. We'll prefer the argument construction except when the block construction is necessary.
+describe Integer do
+  describe '#to_s' do
+    it 'returns string representations of integers' do
+      expect(5.to_s).to eq('5')
+    end
+  end
+end
+The block construction is necessary when you want to test that a certain method call will throw an error:
+describe '#sqrt' do
+  it 'throws an error if given a negative number' do
+    expect { sqrt(-3) }.to raise_error(ArgumentError)
+  end
+end
+RSpec comes with a variety of matchers that come after expect().to or expect().to_not. The most common and staightforward matchers are straight equality matchers.
+expect(test_value).to eq(expected_value) will see if test_value == expected_value. expect(test_value).to be(expected_value) will test if test_value is the same object as expected_value.
+expect('hello').to eq('hello') # => passes ('hello' == 'hello')
+expect('hello').to be('hello') # => fails (strings are different objects)
+Rspec-core notes
+One thing that we often want to do is set up the context in which our specs will run. We usually do this in a before block.
+describe Chess do
+  let(:board) { Board.new }
+
+  describe '#checkmate?' do
+    context 'when in checkmate' do
+      before(:each) do
+        board.make_move([3, 4], [2, 3])
+        board.make_move([1, 2], [4, 5])
+        board.make_move([5, 3], [5, 1])
+        board.make_move([6, 3], [2, 4])
+      end
+
+      it 'should return true' do
+        expect(board.checkmate?(:black)).to be true
+      end
+    end
+  end
+end
+before can be used as either before(:each) or before(:all). You'll almost always use before(:each). before(:each) will execute the block of code before each spec in that describe block. The nice thing about it is that state is not shared - that is, you start fresh on every spec, even if inside your spec (i.e. in your it block) you manipulate some object that the before block set up for you.
+If testing for raise error, the code that is to raise the error has to be passed to expect as a block:
+Expect {code that raises error}.to raise_error(“this is the error”)
+Need to always use raise_error with a message otherwise it catches everything.
+.to be tests for an object to be identical whereas eq just checks if their contents are equal.
+validator = double("validator")
+expect(validator).to receive(:validate) { "02134" }
+zipcode = Zipcode.new("02134", validator)
+
+here you can see the expectation for the receive comes first.
+any new variable you create within an RSpec it block will not persist past that it block. To get around this limitation you could use a subject.
+ wrap any spec expected to raise an error in curly braces. This will effectively create a begin & rescue block for you.
+An expect statement must be nested within an it block.
+RSpec.shared_examples "collections" do
+  it "is empty when first created" do
+    expect(described_class.new).to be_empty
+  end
+end
+
+RSpec.describe Array do
+  include_examples "collections"
+end
+
+RSpec.describe Hash do
+  include_examples "collections"
+end
+
+before do
+end
+
+within a describe block will execute code before each of the it block specs (as the default is before(:each)	
+
+
+IT IS CALLED METHOD STUBBING BECAUSE FOR THE CLASS THAT IS NOT THE CONERN OF THE RSPEC FILE YOU JUST TELL IT WHAT METHOD IT RECEIVES AND WHAT IT SHOULD RETURN SO YOU CAN ESEENTIALLY LEAVE IT OUT AND JUST FOCUS ON HOW IT IS CALLED FROM THE CURRENT CLASS:
+
+	      allow(chef).to receive(:titleize).and_return("Chef Tucker the Great Baker")
+This is when you use the allow keyword for a let(:chef) {double(“chef info”)} that has already been created.
+
+You can also specify this behaviour in creating the chef mock to begin with:
+  let(:chef) { double("chef", name: "Tucker") }
+
+or can use alternate syntax given it is a symbol:
+  let(:chef) { double("chef", :name => "Tucker") }
+
+these are often followed by expect…receive statements for the class we are testing which are in turn followed by calls to the method we are testing since the expect statements come first.
+Red, Green, Refactor
+Red, Green, Refactor describes the proper TDD workflow.
+1.	Red: Write the tests and watch them fail (go red). It's important to ensure the tests initially fail so that you don't have false positives.
+2.	Green: Write the (minimum amount of) code to make the tests pass (go green).
+3.	Refactor: Refactor the code you just wrote. Your job is not over when the tests pass; you got it working, now make it clean.
+Generally, TDD developers keep their Red, Green, Refactor loop pretty tight. They'll write a few related tests, then implement the functionality, then refactor, then repeat. You keep the units small.
+
+
+Test only the public methods.
+
+IT SHOULD ENDEAVOUR TO ONLY TELL WHAT IS NEEDED FOR THE PROGRAM
+
+ troublesome because a spec for #send_confirmation_email should only test the #send_confirmation_email method, not Customer#email_address. But the way we've written this spec, if there's a problem with Customer#email_address, a spec for Order#send_confirmation_email will also break
+
+Another problem is if Order and Customer BOTH have methods that interact with the other. If we write the Customer specs and methods first, then we'll need a functioning Order object first for our Customer to interact with. But we're supposed to TDD Order; we'll need to have written specs for Order, but this requires a Customer...
+
+    expect(customer).to receive(:debit_account).with(5.99)
+We also specify that we should check that we have passed #debit_account the correct price of the product.
+(referring to 5.99) 	
+
+BIG O
+
+Ram model of computation says that all operations count as 1 step along with memory access and a function call. And loops count as the number of iterations in the loop.
+
+Big O does not say what the runtime is but just how the runtime scales with the size of the input.
+It ignores constant and only considers the most dominant term (asymptotic analysis)
+Big O considers the shape of the curve of number of steps vs size of input.
+Adding a less dominant term will not significantly effect the shape of the curve. A term is said to dominate if as n increases it takes proportionally more and more of the number of steps.
+
+Your algorithm is only as fast as your bottleneck (slowest part of algorithm)
+
+
+BIG O is defined as the asymptotic worst case runtime.
+So 3n might be the worst case but O(n) would be the asymptotic worst case
+We don’t consider average case because it is hard to determine, atleast worst case gives us an upper bound.
+
+O(log(n)) is good because as n tends to infinity, the number of extra steps you have to do tends to 0.
+O(Log2n) means if you double the input size, the number of steps increases by 1
+Or alternatively O(Log2n) if at every step you are halving the input size.
+
+Where “n” represents the size of the input (string size, array size, etc). This means that the algorithm will finish its work in a 1:1 relation to input size, so doubling the input size will also double the time it takes to complete the work.
+An example of this is binary search which is O(Log2n). 
+Time complexity is defined as the number of times a particular instruction set takes, - as in the RAM module of computation because total time taken would depend on things like hardware.
+In order of time complexity:
+O(1) is constant
+O(log(n)) is logartihmic – example as mentioned above is binary search
+
+O(n) is linear. Algorithms are as an example things that iterate over entire arrays.
+O (Nlogn) is log linear.
+Merge sort is log linear
+Best and average cases of quicksort are log linear.
+O(nlogn) is the best case we can have to sort an array of unsorted elements.
+O(n2) is quadratic. An example would be like nested iterations in an array.
+Worst case of bubble sort is O(n2)
+O(2n) is exponential – combinations have this time complexity as an upperbound.
+Worst possible algorithm is O(n!) which is factorial. An example would be permutations.
+Set definition of O(g):
+O(g) is the set of of functions f ( {f} | 
+That do not dominate g. } )
+O(2000n2+1000) is also O(n2) as it doesn’t dominate O(n2) is also part of O(n2) and O(n2) does not dominate O(n!) so O(n2) is part of O(n!)
+But this isnt the most precise way of stating the Big O of an algorithm and we typically want to give the closest upper bound
+Space complexity is how much space is taken up as it grows. If you have 2 arrays that are identical except the second array is missing an element you can find the missing element with an O(n) (linear) algorithm as follows:
+Add to a hash the number of times each element has occurred and the element as a key (iterating through the 1st array). Subtract 1 from each keys value the element from the second array iterating through it.
+Iterate through the hash finding the only key that has a value of 1.
+In terms of space complexity This is O(n) because a hash is made that scales in size as n. 
+Xor (^) of 2 numbers binary representations (bitwise XOR) creates another number and if you xor the first number with that again then it undoes the XOR:
+
+1^2  => 3
+3^2 => 1
+3^1 => 2
+Remember XOR is true only if both its values are different.
+We can actually solve the above problem using O(1) SPACE complexity by just bitwise XORing all the numbers in both arrays together and the return value will be the missing number!
+[1,2,3,4]
+[1,4,2]
+1^2^3^4^1^4^2  => 3
+Because n^n => 0 
+and 0 ^ x => x 
+
+ "space complexity") is very similar to talking about time cost. We simply look at the total size (relative to the size of the input) of any new variables we're allocating.
+
+Usually when we talk about space complexity, we're talking about additional space, so we don't include space taken up by the inputs. For example, this method takes constant space even though the input has nn items:
+And space isn’t used up when a variable that already exists is being referenced, and if it is reassigned to something else then we just consider what it’s largest space was over the course of the algorithms runtime. Integers have O(1) space
+Arrays have O(n) space complexity for the number of elements in an array so of course 2d nested arrays have order (n*j) space complexity depending on the nested array lengths 
+
+
+in TDD always include multiple cases and cover all edge cases and both false positives and false negatives
+
+A hashmap has O(1) #set and O(1) #get
+hash.include?(value) is O(1) unlike for arrays where it is O(n)
+    hashm=arr.inject(Hash.new {0}) {|acc,ele| acc[ele]+=1;acc} 
+
+bsearch_index {|x| ... } ⇒ Integer?
+By using binary search, finds an index of a value from this array which meets the given condition in O(log n) where n is the size of the array.
+
+It supports two modes, depending on the nature of the block. They are exactly the same as in the case of the #bsearch method, with the only difference being that this method returns the index of the element instead of the element itself. For more details consult the documentation for #bsearch.
+
+array.slice is an O(n) method
+
+ Similar to queues, stack implementations do not expose methods to slice or sort the data, or to find a specific element. The basic operations are:
+
+Stack
+push: adds an element to the top of the stack
+pop: removes an element from the top of the stack and returns it
+
+delete_at operation. When element is deleted from an array in a specific position it has to shift down all the elements that are higher than it in memory which takes O(n) in the worst case where the element that is deleted is in position 1. Hence dequeing from a queue takes O(n) time but we get around this by making a queue using stacks which have push and pop operations of O(1) so that dequeing will take O(1)
+
+LRU Cache
+what is a set?:
+A set is an ADT that can be implemented in a number of different ways.
+a set is an unordered list of DIFFERENT objects  (doesn't have any mapping)
+the API of a set is:
+.include? 
+.insert 
+.delete 
+a set can be implemented with an array (of course dont have a reader method) but it is pretty rubbish because:
+.include? will be O(n)
+.insert will be O(n) because have to look for duplicate first
+.delete will be O(n) deletes an element with a particular value from set.
+for delete, have to go through every element of array left to right until get to element since there is no ordering in the set so can't binary search.
+with .insert, you check if the element already exists in the array first since we can only have unique elements in a set then if not in set you append to the end of the set.
+
+.include? you just scan through the array until you find the element you are looking for (or don't).
+So it is not a good idea to use arrays to implement sets!
+
+A more clever way:
+lets say that you can only put in values of the same type in a set:
+indexing into an array is O(1), this is not the case for many other data structures,
+each element is stored right next to each other in memory in an array
+and the array knows its starting memory address and its length and each integer is an 8 byte integer which means to do array[n] it just looks at x+8*n (pointer arithmetic)
+So we can use the fact that an array is O(1) lookup to make a very good implementation of a set if we constrain the set to objects that are of integer type:
+Set = {1,2,7,3,5}
+we take the range of the set which is 7-1 = 6 and
+we just represent out set as an array with indices indicating whether an element is in the set or not with a Boolean True if in the set and False if not.
+our_set=[True,True,True,False,True,False,True]
+         	      1         2        3        4        5       6          7
+so we have to offset the array indices by the minimum of the set (so we dont have to start from 0)
+so now for include?(3) we just do our_set[2]
+.delete(5) we just set our_set[6]=False
+.insert(8) we just see that our_set[7] =nil so allocate more to our array.
+so now insert is O(1)
+include? we jump straight to the relevant index using pointer arithmetic so it is O(1)
+delete is O(1) because we just set the element to false.
+
+THERE IS A MAJOR PROBLEM THOUGH!
+other than the fact that this only works for integers, If we have a set like {0,10^20}
+then we need to store a gigantic array that will use all our memory:
+[True,False,False,False ........ False,True]
+   0        1          2       3                10^20-1 10^20
+SO WE NEED TO IMPROVE ON THIS.
+What we do is instead of setting an array based on the range, we restrict our set to have a fixed size and restrict it to only being integers (as before)
+Set : {1,4,6,64,128,129} ignore sorting order just coincidence:
+
+but our datastructure is fixed to 4 bucket:
+[, , , ,]
+0 1 2 3
+we use the modulo operator (%) for this:
+(0...n) is the range of possible values for any number modulo n
+x  % n in (0...n)
+and our buckets are indexed from 0....n where n is the number of buckets so for the set above:
+ Set : {1,4,6,64,128,129} 
+if we have n buckets or in this case 4 we go through each element in the set and mod it by 4 then put the  number from the set in the results bucket index:
+our_set= [ [4,64,128] , [1, 129] , [6] ]
+so now for include?(128) we do 128 mod 4 which is 0 and then scan through all elements in bucket 0 to check for 128 and return false if it is not in there. A similar process is done for .delete and .insert also. Each bucket will on average have n/4 elements so the asymptotic worst case (bigO) will still be O(n) which for each of the 3 methods which is no good! So what we want to do is for a bucket size of k, we want to increase k to be similar to n as n grows so that n/k is approximately n/n which is O(1)
+HERE IS HOW WE DO THAT:
+ Set : {1,4,6,3,8,9,11} 
+we start with 4 buckets.
+[[4],[1],[6],[3]]
+so we have inserted 4 elements and the moment we insert the 5th element, n has overtaken k.
+so we could then increase the number of buckets by 1 every time n equals k. This would mean that each time we insert a new element we have to redistribute all the elements into the buckets again since we are adding a new bucket. This means that insert is now O(n) but now we have O(1) include? and O(1) delete since each bucket will have on average 1 element in it.
+If instead we say each time n=k when we insert an element we instead add 3 new buckets. This woud mean if n=k=4,  then inserting would cost O(n) after which n=5, k=8. So the next 3 inserts are now O(1). so in every 4 inserts we get the pattern O(n) +O(1) +O(1)+ O(1). so we say our amortized time is O(n/4) which is still O(n). So what we want is when n=k to increase our bucket size by n. so that we get n free inserts for every O(n) insert :
+O(5) + O(1)+O(1)+O(1)+O(1)+O(1). so our amortized cost is O(n/n) = O(1).
+
+we arent considering worst case time complexity for include but rather the amortized cost.
+amortized cost is a term often used in finance where you pay a sum upfront and it covers the rest of the months of the year, so your amortized cost is cost/12
+the cost is amortized O(1) which is different from average O(1)	 though it is also average O(1)
+armotization says that over a very large amount of pushes it will be something propertional to O(1) but does not say what any particular insertion will be on average. for average behaviour you don't specify what the time taken will be over a very large number insertions
+space complexity is now O(n) as number of buckets scales with n.
+insertion is O(1) amortized
+example of amortized:
+1000 coin flips:
+average time to get heads O(1) (takes 1 or 2 times)
+amortized time: O(n)
+
+include? and delete are O(1) not amortized and are only O(1) for random data.
+buckets on average have 1 element in it.
+but if have what is called a pathalogical input like powers of 2
+for example we initialise our bucket size to 4:
+Set: {2,4,8,16,32,64}
+our buckets look like:
+[[2,4,8,16,32,64],[],[],[]]
+This is a scenario that could happen and our include, delete and insert would all be O(n)
+
+
+In any case we want to be able to do this for all objects, not just integers!
+HASHING:
+hash function takes any object as an input and the output is a very weird looking string :
+10^6 -> [f] -> "b72ac993dfsd"
+"hello" -> [f] -> "asdac99fdadfs"
+but the hash we get out is always the same length.
+but the hash function is always deterministic so every time provide 10^6 we get the same hash
+
+A very desireable property of a hashing function is for it to be uniformly distributed. (any string is as likely as any other)
+Hashing functions are one-way aka highly sensitive meaning there is no way given the output to tell what the input was:
+the hash for "hellop" will be completely different and unrelated to the hash for "hello"
+
+There are hashing functions that are used for speed and efficiency like:
+Cityhash, CRC32, Murmurhash is used by ruby.
+Other kinds of hashing functions are cryptographic hashing functions:
+MD5 (weak so not used as much anymore), SHA1, SHA2, Blowfish (used later)
+
+Cryptographic hashing functions are slower than standard hashing functions, and have fewer collisions. 
+A collision is when 2 different inputs go to the same output.
+Cryptographic hashing functions are very hard to reverse engineer so better for security but otherwise should use a standard hashing function which is faster.
+
+Ruby exposes a .hash method in every object. (inheritance)
+class Object
+def hash
+using mumurhash says how an object gets hashed
+end
+
+we construct a Hash Set to solve our problem:
+Set:{2,4,8,16,"hello","dolly"}
+we mod the hash of the number by the number of buckets rather than the number itself
+(hashing fuction usually outputs a number or if it doesn't we just interpret the string as a number by assigning a unique number to each character of the string).
+so now we see why the hashing function is one way- (so the 2,4,8,16 are uniformly distributed over the buckets) is uniformly distributed and the hashes are of fixed size.
+NB: To be clear, we hash each element but we do not store the hash value but rather store the actual value in the buckets!
+our_set = [[2],[8,4],[],[16]]
+This means that when we expand the set as n overtakes k when we do an insert operation, we have to rehash each of the number and take the mod of the new k value again since we did not store the hash value. this will take n+n=2n time.
+if we do our_set.include?(2)
+2 is hashed then moded by 4 then we look in the answers bucket index for 2.
+So time complexities for operations are:
+avg:			worst
+insert O(1)		O(n) - we insert when we need to resize the bucket which takes n time 				going through each element calculating the mod and then 					when we scan the bucket, all the elements of the set are in 					that bucket and our element is not in the bucket n time again 					so total time is 2n which is O(n)
+
+include? O(1)
+delete O(1)
+the 
+THIS IS HOW SETS ARE IMPLEMENTED IN RUBY
+Set is implemented as a Hash set in ruby using Set.new
+in Ruby. The way hash is defined by default is as so:
+Class Object
+def hash
+object-id.hash
+end
+it just hashes the object id. This is bad for things like arrays and strings which can be equal but have different object id's:
+[1,2,3].object_id returns 620
+[1,2,3].object_id returns 640
+Set : {[1,2,3]}
+Set.include?([1,2,3]) can return false. For this reason, the inherited hash method is overwritten by the hash method for the array class and the same for strings
+class Array
+def hash
+will use the ==operator
+end
+end
+
+
+singly linked list:
+each node has only one link to any other node.
+each node has a value
+[3]->[4]->[5]
+they can be any values though
+each node will have an @next variable.
+where @next equals the next node
+and the final node's @next = nil
+first element in linked list called the head.
+last element is called a tail.
+
+class Node
+	def initialized(val,next=nil)
+	@val = val
+	@next = next
+	end
+end
+and that's it!
+find -> O(n) linear time because you have to look at each element.
+push -> O(n) as have to iterate to end until see a nil then add to end.
+can optimize push by storing @tail and kept tail updated if ever deleted or added something new then we can push onto the tail in O(1) time by setting its @next.
+unshifting (prepending) will be O(1) if we store the @head for each node as we can just update the @head by pointing the @next to the current head and setting @head to self.
+THE ADVANTAGE OF A LINKED LIST IS THAT TO DELETE A node IS VERY EASY:
+you just set the @next of the previous node to miss out the  node you want deleted from the linked list and point to the one afterwards and that is it!
+however we don't have access to the previous node so we need:
+to get the previous node need a doubly linked list:
+just have every node have an @prev.
+@prev of the head node points to nil.
+to delete a node we set the @prev node to be the current node's @next and the @next of the current node's @prev to be the @ prev of the current node.
+insert is also O(1) if you are given the node you want to insert infront of. you just set that nodes next to the node you want to insert and the node you want to insert @ prev to that node etc.
+
+however unlike in an array to get a node at a particular index is really slow for a linked list, have to iterate from head until get n many steps in then return taht node. This is O(n).
+Deleting with an array is O(n) whereas with a linked list however it is O(1)
+
+code is easier for a linked list if you use sentinal nodes:
+If you have an empty linked list instead of having nothing you will just have placeholders for @next, @prev and @tail. You always have the head and tail nodes even for an empty linked list so do not have to check for nils.
+
+We use linked lists to build hashmaps from hash sets
+You could build a hashmap using just arrays with 2 elements (tuples) but there is a data structure called a cache that is built on a hashmap and will only work if the hashmap was built with linked lists.
+to build a hashmap with a linked list we just have a linked list with nodes that have 2 values: a key and a value. Since the key is the unique value of the hasmap we do the key.hash mod bucket size for the buckets and instead of adding values to the buckets as arrays, we just add each new value as a node to the end of a linked list with each bucket is essentially just a linked list full of nodes.
+
+Caching
+LRU is how we decide what to store in the cache and what to delete.
+we define a cache size.
+CACHE-SIZE = 4
+this is a very small cache-size what we actually hope for is a cache size that is big enough to store everything currently in frame plus some things not in frame that we may need.
+as soon as there are more then 4 things in the cache we delete something from the cache
+we delete the least recently used thing. (LRU - the thing that was accessed the longest time ago)
+cache = {
+	mario => [mario_object,timestamp1]
+	cloud => [cloud_object,timestamp2]
+	coin => [coin_object,timestamp3]
+}
+if the cloud has been out of frame for a while and a goomba appeared then we kill the cloud and store the goomba
+
+a cache has keys and values, one way of storing the cache is as a giant hashmap and we store the object together with a timestamp.
+The problem is 

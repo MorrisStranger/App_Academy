@@ -111,7 +111,9 @@ class MinMaxStack # O(1) max and min methods
             @store.empty?
         end
         def pop
-            @store.delete(@store.keys.last)
+            key = @store.keys.last
+            @store.delete(key)
+            key
 
         end
         def push(ele)
@@ -162,8 +164,22 @@ class MinMaxStackQueue # dequeue O(1)
    
 end
 queue=MinMaxStackQueue.new
-
-
+p queue.empty?
+queue.enqueue(3)
+queue.enqueue(5)
+queue.enqueue(2)
+p queue.min
+p queue.max
+p queue.size
+p queue.empty?
+queue.dequeue
+p queue.min
+p queue.max
+p queue.size
+queue.dequeue
+p queue.min
+p queue.max
+p queue.size
 
 
 #enqueue
@@ -189,3 +205,22 @@ if stack1 not empty move all elements from stack1 over to stack2
 
     stack2.pop 
 =end
+
+
+def better_windowed_max_range(arr,w)
+    current_max_range=0
+    queue=MinMaxStackQueue.new
+    
+    (0...w).each do |i|
+        
+        queue.enqueue(arr[i])
+    end
+    max=queue.max
+    min=queue.min
+    current_max_range = max-min if max-min > current_max_range
+    (w...arr.length-w+1).each do
+    queue.dequeue
+    queue.enqueue(arr[])
+    end
+    current_max_range
+end
