@@ -27,6 +27,7 @@ class StaticArray
 end
 
 class DynamicArray
+  include Enumerable
   attr_accessor :count
 
   def initialize(capacity = 8)
@@ -35,37 +36,136 @@ class DynamicArray
   end
 
   def [](i)
+# for negative we want i mod count, for positive, just i
+    if i < 0
+    return nil if i < -self.count
+      return @store[i % @count]
+    else
+      @store[i]
+    end
   end
 
   def []=(i, val)
+
+    if i < 0
+      return nil if i < -self.count
+       @store[i % @count] = val
+    else
+      @store[i] = val
+    end
+    if i > @count
+      (i-@count).times { self.push(nil) }
+      @store[i]=val
+            end 
   end
 
   def capacity
     @store.length
   end
 
-  def include?(val)
+  def include?(val) # self.any iterates through each value
+    self.any? {|ele| ele==val}
   end
 
   def push(val)
+    resize! if @count  == capacity
+    self[@count] = val
+    @count +=1
+    # resize! if 
   end
 
-  def unshift(val)
+  def unshift(val)#[1,2]
+    # resize! if @count ==capacity
+    new_arr = StaticArray.new(capacity)
+    new_arr[0]=val
+
+    @count.times do |i|
+    new_arr[i+1]=self[i]
+    # p ele
+    end
+    # self.each 
+    # new_arr =[]
+    # new_arr[0]=val
+    # while i < 
+    @count +=1
+
+
+    @store=new_arr
+    resize! if @count ==capacity
+
   end
+    # # new_arr=[]
+    
+    # i = @count
+    # p @store
+    # p val
+    # p @count
+    # while i >=1
+    #   # p @store[i]
+    # @store[i]=@store[i-1]
+    # p @store
+    # p @store[1]
+    # p @store[0]
+    # i-=1
+    # end
+    # # @store[0]=val
+    # @store
+    # # p @store
+    # new_arr = []
+
+    # @store
+    
+    # @store = new_arr
+
+
+
+
+
+
+  # end
 
   def pop
+    return nil if @count ==0
+    p "hello there"
+    p @count
+    value =self[@count-1]
+    self[@count-1]=nil
+    @count -=1
+    return value
+    
   end
 
   def shift
-  end
+    new_arr=StaticArray.new(capacity)
+    i=0
+    value=first
+    self.each do |ele|
+
+      new_arr[i]=self[i+1]
+      i+=1
+      end
+      @count -=1
+      @store = new_arr
+      return value
+      
+    end 
+
+    
 
   def first
+    self[0]
   end
 
   def last
+    self[@count-1]
   end
 
   def each
+    i=0
+    while i < @count
+      yield self[i]
+      i+=1
+    end
   end
 
   def to_s
@@ -74,6 +174,12 @@ class DynamicArray
 
   def ==(other)
     return false unless [Array, DynamicArray].include?(other.class)
+    
+    p length
+    self.length.times do |i|
+    return false if self[i] != other[i] 
+    end
+    true
     # ...
   end
 
@@ -83,5 +189,31 @@ class DynamicArray
   private
 
   def resize!
+    
+      new_arr = StaticArray.new(capacity*2)
+      i = 0
+      
+      while i < @count
+        new_arr[i]=self[i]
+        i+=1
+      end
+    @store=new_arr  
+
+    return @store
+
+    end
+
   end
+
+  if __FILE__==$PROGRAM_NAME
+  a=DynamicArray.new(3)
+  a[2]=0
+  p a
+  p a == [nil,nil,0]
+  # a.push(1)
+  # a.push(2)
+  # a.push(3)
+  # a.push(4)
+  # a.push(5)
+  # p a[-10]
 end

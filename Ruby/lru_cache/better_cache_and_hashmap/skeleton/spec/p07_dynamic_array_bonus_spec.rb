@@ -219,11 +219,13 @@ describe DynamicArray do
       expect(arr[-6]).to be_nil
 
       5.times { arr.shift }
-
       (1..100).each { |n| arr.push(n) }
       expect(arr[-6]).to eq(95)
-
+      p arr[-6]
+      p arr.count
       arr[-1] = 200
+      # p "hello"
+      p arr[-1]
       expect(arr[99]).to eq(200)
     end
   end
