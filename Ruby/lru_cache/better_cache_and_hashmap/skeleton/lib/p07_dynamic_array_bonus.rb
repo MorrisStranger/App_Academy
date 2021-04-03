@@ -46,17 +46,28 @@ class DynamicArray
   end
 
   def []=(i, val)
+    # problem is count is not incrementing when you change a value from a nil to a number
 
     if i < 0
       return nil if i < -self.count
        @store[i % @count] = val
+      elsif i > capacity
+  
+        until @count == i+1
+        self.push(nil)
+        # push increments the count since assining a value larger than capacity fills with nills
+        end
+        @store[i]=val
+
     else
+      # if @count < capacity && @store[i].nil?
+      
+      # end
       @store[i] = val
+      @count +=1
     end
-    if i > @count
-      (i-@count).times { self.push(nil) }
-      @store[i]=val
-            end 
+
+ 
   end
 
   def capacity
@@ -136,16 +147,31 @@ class DynamicArray
   end
 
   def shift
+    # return nil if self.count ==0
+    # p "testing shift"
+    # p self
     new_arr=StaticArray.new(capacity)
-    i=0
-    value=first
-    self.each do |ele|
 
+    value=first
+    # p self
+    # p new_arr
+    # p @store
+    # p count
+    p "initial array"
+    p self
+    self.count.times do |i|
+      p "i should be here"
+      p i
       new_arr[i]=self[i+1]
-      i+=1
       end
       @count -=1
+      # p "did it delete the nil"
+
+      # p new_arr
       @store = new_arr
+      p "see if nil is gone?"
+      p @store
+
       return value
       
     end 
@@ -176,7 +202,7 @@ class DynamicArray
     return false unless [Array, DynamicArray].include?(other.class)
     
     p length
-    self.length.times do |i|
+    self.count.times do |i|
     return false if self[i] != other[i] 
     end
     true
@@ -209,7 +235,14 @@ class DynamicArray
   a=DynamicArray.new(3)
   a[2]=0
   p a
-  p a == [nil,nil,0]
+  a.shift
+  p a
+
+  # a.shift
+  # p a
+  # a[5]=0
+  # p a
+
   # a.push(1)
   # a.push(2)
   # a.push(3)

@@ -235,7 +235,10 @@ describe DynamicArray do
       arr[2] = 0
       expect(arr).to eq([nil, nil, 0])
       arr.shift
+      p "hello"
+      p arr
       arr[5] = 0
+
       expect(arr).to eq([nil, 0, nil, nil, nil, 0])
     end
   end
