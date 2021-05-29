@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+p "enter an email:"
+email=gets.chomp()
+user=User.where(email:email).first
+p "enter 'y' to create an shortened url or 'n' to visit one" 
+decision=gets.chomp()
+if decision=="y"
+p "type in your long url"
+long_url=gets.chomp()
+ShortenedUrl.create!(user,long_url)
+p "short url is: #{ShortenedUrl.last.short_url}"
+else
+p "type in the shortened url: "
+short_url=gets.chomp()
+long_url=ShortenedUrl.where(short_url:short_url).first
+p "launching #{long_url.long_url}"
+Visit.record_visit!(user,long_url)
+#link = long_url.long_url
+
+#Launchy.open(long_url.long_url)
+end
