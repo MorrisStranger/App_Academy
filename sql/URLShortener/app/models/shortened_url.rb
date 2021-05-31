@@ -8,6 +8,7 @@ class ShortenedUrl < ApplicationRecord
         # ShortenedUrl.
         newobject=self.new(short_url:random_code(),long_url:long_url_string,user_id:user.id)
         newobject.save!
+        newobject
         # ShortenedUrl.save!(short_url:random_code(),long_url:long_url_string,user_id:user.id)
     end
     def self.random_code
@@ -17,7 +18,7 @@ class ShortenedUrl < ApplicationRecord
     end
     short_url
     end
-    has_many :visits,
+    has_many :visits, dependent: :destroy,
     primary_key: :id,
     foreign_key: :shortened_url_id,
     class_name: :Visit
@@ -33,7 +34,7 @@ class ShortenedUrl < ApplicationRecord
     through: :visits,
     source: :visitor
 
-    has_many :taggings,
+    has_many :taggings, dependent: :destroy,
     primary_key: :id,
     foreign_key: :tagging_id,
     class_name: :Tagging
@@ -81,7 +82,12 @@ class ShortenedUrl < ApplicationRecord
         end
     end
     def self.prune(n)
+        # ShortenedUrl.left_outer_joins(:visits).where(visits:{id:nil})
 
+        ShortenedUrl.left_outer_joins(:visits) \
+        .where("visits.created_at<'#{n.minutes.ago}'")\
+        .or(ShortenedUrl.left_outer_joins(:visits).where(visits:{id:nil}).where("shortened_urls.created_at<'#{n.minutes.ago}'"))\
+        .destroy_all
     end
 end
 
